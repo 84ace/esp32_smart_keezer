@@ -66,7 +66,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![ESP32 Smart Keezer][product-screenshot]](https://github.com/84ace/esp32_smart_keezer/raw/master/enclosure/front_iso.png)
+[![ESP32 Smart Keezer][product-screenshot]](https://github.com/84ace/esp32_smart_keezer/raw/master/board_images/esp32_smart_keezer_front.jpeg)
 
 The ESP32 Smart Keezer was created so that we could monitor things inside the Keezer a bit better (so we knew when we were going to run out of beer), and also so we could have a cooler way of displaying what beers were on tap.
 
@@ -84,14 +84,16 @@ The ESP32 Smart Keezer was created so that we could monitor things inside the Ke
 
 If you would like to contribute an app please contact me via the <a href="https://github.com/84ace/esp32_smart_keezer/tree/master/board_images">issues</a> page.
 
-<!-- GETTING STARTED -->
-## Get the Isolator
+<!-- GETTING STARTED 
+## Get the hardware
 
-There are two ways to get started with the ESP32 Battery Isolator: 
+There are two ways to get started: 
 * You can either take the easy(er) way and buy a pre-made unit from [here](https://placeholder.com/) 
 * you can send the gerber files off to your favourite fab house, order the components, assemble the board and print the enclosure yourself.
 
 Your choice!
+
+-->
 
 <!-- ROADMAP -->
 ## Roadmap
