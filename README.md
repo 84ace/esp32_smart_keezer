@@ -31,9 +31,7 @@
     <br />
     <br />
     <a href="https://github.com/84ace/esp32_smart_keezer/tree/master/board_images">Board Images</a>
-    ·
     <a href="https://github.com/84ace/esp32_smart_keezer/issues">Report Bug</a>
-    ·
     <a href="https://github.com/84ace/esp32_smart_keezer/issues">Request Feature</a>
   </p>
 </p>
@@ -76,18 +74,13 @@ The ESP32 Smart Keezer was created so that we could monitor things inside the Ke
 ## Main Features:
 * Web based  config (webserver)
 * 10 channel flow meter
-* Charger input (From external MPPT/solar charge controller)
-* Current sensors
-* Temperature sensor
-* 128x32 OLED screen
-* Bluetooth (for remote control via phone app)
-* WiFi (for debugging)
-* USB (micro)
-* 30A continuous operation
+* Bluetooth (to update the tap handles)
+* WiFi
+* USB (for power and flashing/debug)
 
 <!-- WHAT"S MISSING -->
 ## What's missing:
-* A Phone app for remote control / live telemetry
+* Many many things
 
 If you would like to contribute an app please contact me via the <a href="https://github.com/84ace/esp32_smart_keezer/tree/master/board_images">issues</a> page.
 
@@ -152,4 +145,4 @@ Project Link: [https://github.com/84ace/esp32_smart_keezer](https://github.com/8
 [license-url]: https://github.com/84ace/esp32_smart_keezer/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/acea-quigg-2007036b/
-[product-screenshot]: enclosure/front_iso.png
+[product-screenshot]: board_images/esp32_smart_keezer_front.jpeg
