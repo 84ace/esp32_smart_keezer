@@ -66,7 +66,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![ESP32 Smart Keezer][product-screenshot]](https://github.com/84ace/esp32_smart_keezer/raw/master/board_images/esp32_smart_keezer_front.jpeg)
+[![ESP32 Smart Keezer][product-screenshot]](https://github.com/84ace/esp32_smart_keezer/raw/master/board_images/esp32_smart_keezer_front.jpg)
 
 The ESP32 Smart Keezer was created so that we could monitor things inside the Keezer a bit better (so we knew when we were going to run out of beer), and also so we could have a cooler way of displaying what beers were on tap.
 
@@ -147,4 +147,4 @@ Project Link: [https://github.com/84ace/esp32_smart_keezer](https://github.com/8
 [license-url]: https://github.com/84ace/esp32_smart_keezer/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/acea-quigg-2007036b/
-[product-screenshot]: board_images/esp32_smart_keezer_front.jpeg
+[product-screenshot]: board_images/esp32_smart_keezer_front.jpg
