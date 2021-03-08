@@ -1,0 +1,12 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/Users/acea/.vscode/extensions/rt-thread.rt-thread-micropython-1.0.7/microExamples/code-completion"
+    ],
+    "python.linting.pylintArgs": [
+        "--init-hook",
+        "import sys; sys.path.append('/Users/acea/.vscode/extensions/rt-thread.rt-thread-micropython-1.0.7/microExamples/code-completion')"
+    ],
+    "files.associations": {
+        ".mpyproject.json": "jsonc"
+    }
+}

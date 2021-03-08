@@ -1,0 +1,8 @@
+{
+    "name": "software",
+    "stubs": {},
+    "dev-packages": {
+        "micropy-cli": "*"
+    },
+    "packages": {}
+}
