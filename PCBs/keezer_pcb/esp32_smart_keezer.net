@@ -1,14 +1,14 @@
 (export (version D)
   (design
     (source /Users/acea/projects/hardware/esp32_smart_keezer/PCBs/keezer_pcb/esp32_smart_keezer.sch)
-    (date "Saturday, 28 August 2021 at 06:00:43 pm")
+    (date "Sunday, 29 August 2021 at 08:42:01 pm")
     (tool "Eeschema (5.1.10-1-10_14)")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
         (title "ESP32 Smart Keezer")
         (company "Acea Quigg")
-        (rev 0)
-        (date 2021-03-08)
+        (rev 1)
+        (date 2021-08-28)
         (source esp32_smart_keezer.sch)
         (comment (number 1) (value ""))
         (comment (number 2) (value ""))
@@ -422,7 +422,7 @@
       (tstamp 612BDF14))
     (comp (ref C4)
       (value 0.47uF)
-      (footprint Capacitor_SMD:C_0805_2012Metric)
+      (footprint Capacitor_SMD:C_0201_0603Metric)
       (fields
         (field (name lcsc_part_number) C1623))
       (libsource (lib Device) (part C_Small) (description "Unpolarized capacitor, small symbol"))
