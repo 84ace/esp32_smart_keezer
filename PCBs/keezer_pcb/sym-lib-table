@@ -1,2 +1,3 @@
 (sym_lib_table
+  (lib (name esp32_smart_keezer-rescue)(type Legacy)(uri ${KIPRJMOD}/esp32_smart_keezer-rescue.lib)(options "")(descr ""))
 )
