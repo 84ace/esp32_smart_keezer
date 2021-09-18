@@ -1,0 +1,4 @@
+{
+    "port": "/dev/cu.usbserial-1430",
+    "board": "espressif:esp32:esp32"
+}

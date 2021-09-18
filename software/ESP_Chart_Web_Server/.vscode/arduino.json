@@ -1,0 +1,7 @@
+{
+    "port": "/dev/cu.usbserial-1430",
+    "configuration": "PSRAM=disabled,PartitionScheme=min_spiffs,CPUFreq=240,FlashMode=qio,FlashFreq=80,FlashSize=4M,UploadSpeed=460800,DebugLevel=warn",
+    "board": "espressif:esp32:esp32",
+    "output": "/Users/acea/projects/hardware/esp32_battery_isolator/software/arduino/ArduinoOutput",
+    "sketch": "ESP_Chart_Web_Server.ino"
+}

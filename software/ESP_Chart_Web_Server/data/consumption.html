@@ -1,0 +1,456 @@
+</html>
+
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>BeerTastic - Kegtastic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.13/moment-timezone-with-data-2012-2022.min.js"></script>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <!-- <link rel="icon" type="image/x-icon" href="/data/favicon.ico"> -->
+  <link rel="stylesheet" href="css.css" type="text/css">
+</head>
+
+
+
+<body>
+  <div style="padding: 20px;">
+    <div style="position:absolute;top:0;right:0;">
+      <a href="/"><button>Beer Overview</button></a>
+      <a href="/settings"><button>Settings</button></a>
+    </div>
+    <h2 class="row" style="padding-left: 30px;">KegTastic v001</h2>
+    <div class="row">
+      <div id="chart-beer1" class="col-lg-4 col-md-4 col-sm-6 col-xs-6"></div>
+      <div id="chart-beer2" class="col-lg-4 col-md-4 col-sm-6 col-xs-6"></div>
+      <div id="chart-beer3" class="col-lg-4 col-md-4 col-sm-6 col-xs-6"></div>
+      <div id="chart-beer4" class="col-lg-4 col-md-4 col-sm-6 col-xs-6"></div>
+      <div id="chart-beer5" class="col-lg-4 col-md-4 col-sm-6 col-xs-6"></div>
+      <div id="chart-beer6" class="col-lg-4 col-md-4 col-sm-6 col-xs-6"></div>
+      <div id="chart-beer7" class="col-lg-4 col-md-4 col-sm-6 col-xs-6"></div>
+      <div id="chart-beer8" class="col-lg-4 col-md-4 col-sm-6 col-xs-6"></div>
+      <div id="chart-beer9" class="col-lg-4 col-md-4 col-sm-6 col-xs-6"></div>
+      <div id="chart-beer10" class="col-lg-4 col-md-4 col-sm-6 col-xs-6"></div>
+    </div>
+    <div>
+</body>
+<script>
+  Highcharts.setOptions({
+    time: {
+        timezone: 'Australia/Sydney'
+    }
+});
+  var chart1 = new Highcharts.Chart({
+    chart: { renderTo: 'chart-beer1' },
+    title: { text: 'Beer1' },
+    series: [{
+      showInLegend: false,
+      data: []
+    }],
+    plotOptions: {
+      line: {
+        animation: false,
+        dataLabels: { enabled: true }
+      },
+      series: { color: '#059e8a' }
+    },
+    xAxis: {
+      type: 'datetime',
+      dateTimeLabelFormats: { second: '%H:%M:%S' }
+    },
+    yAxis: {
+      title: { text: 'Litres remaining' }
+    },
+    credits: { enabled: false }
+  });
+  setInterval(function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var x = (new Date()).getTime(),
+        yRaw = parseFloat(this.responseText)
+          y = parseFloat((yRaw / 1000).toFixed(1));
+          if (chart1.series[0].data.length > 40) {
+          chart1.series[0].addPoint([x, y], true, true, true);
+        } else {
+          chart1.series[0].addPoint([x, y], true, false, true);
+        }
+      }
+    };
+    xhttp.open("GET", "/beer1", true);
+    xhttp.send();
+  }, 10000);
+
+  var chart2 = new Highcharts.Chart({
+    chart: { renderTo: 'chart-beer2' },
+    title: { text: 'Beer2' },
+    series: [{
+      showInLegend: false,
+      data: []
+    }],
+    plotOptions: {
+      line: {
+        animation: false,
+        dataLabels: { enabled: true }
+      }
+    },
+    xAxis: {
+      type: 'datetime',
+      dateTimeLabelFormats: { second: '%H:%M:%S' }
+    },
+    yAxis: {
+      title: { text: 'Litres remaining' }
+    },
+    credits: { enabled: false }
+  });
+  setInterval(function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var x = (new Date()).getTime(),
+        yRaw = parseFloat(this.response)
+        y = parseFloat((yRaw / 1000).toFixed(1));
+        if (chart2.series[0].data.length > 40) {
+          chart2.series[0].addPoint([x, y], true, true, true);
+        } else {
+          chart2.series[0].addPoint([x, y], true, false, true);
+        }
+      }
+    };
+    xhttp.open("GET", "/beer2", true);
+    xhttp.send();
+  }, 10000);
+
+  var chart3 = new Highcharts.Chart({
+    chart: { renderTo: 'chart-beer3' },
+    title: { text: 'Beer3' },
+    series: [{
+      showInLegend: false,
+      data: []
+    }],
+    plotOptions: {
+      line: {
+        animation: false,
+        dataLabels: { enabled: true }
+      },
+      series: { color: '#18009c' }
+    },
+    xAxis: {
+      type: 'datetime',
+      dateTimeLabelFormats: { second: '%H:%M:%S' }
+    },
+    yAxis: {
+      title: { text: 'Litres remaining' }
+    },
+    credits: { enabled: false }
+  });
+  setInterval(function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var x = (new Date()).getTime(),
+        yRaw = parseFloat(this.responseText)
+        y = parseFloat((yRaw / 1000).toFixed(1));
+        if (chart3.series[0].data.length > 40) {
+          chart3.series[0].addPoint([x, y], true, true, true);
+        } else {
+          chart3.series[0].addPoint([x, y], true, false, true);
+        }
+      }
+    };
+    xhttp.open("GET", "/beer3", true);
+    xhttp.send();
+  }, 10000);
+
+  var chart4 = new Highcharts.Chart({
+    chart: { renderTo: 'chart-beer4' },
+    title: { text: 'Beer4' },
+    series: [{
+      showInLegend: false,
+      data: []
+    }],
+    plotOptions: {
+      line: {
+        animation: false,
+        dataLabels: { enabled: true }
+      },
+      series: { color: '#18009c' }
+    },
+    xAxis: {
+      type: 'datetime',
+      dateTimeLabelFormats: { second: '%H:%M:%S' }
+    },
+    yAxis: {
+      title: { text: 'Litres remaining' }
+    },
+    credits: { enabled: false }
+  });
+  setInterval(function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var x = (new Date()).getTime(),
+        yRaw = parseFloat(this.responseText)
+        y = parseFloat((yRaw / 1000).toFixed(1));
+        if (chart4.series[0].data.length > 40) {
+          chart4.series[0].addPoint([x, y], true, true, true);
+        } else {
+          chart4.series[0].addPoint([x, y], true, false, true);
+        }
+      }
+    };
+    xhttp.open("GET", "/beer4", true);
+    xhttp.send();
+  }, 10000);
+
+  var chart5 = new Highcharts.Chart({
+    chart: { renderTo: 'chart-beer5' },
+    title: { text: 'Beer5' },
+    series: [{
+      showInLegend: false,
+      data: []
+    }],
+    plotOptions: {
+      line: {
+        animation: false,
+        dataLabels: { enabled: true }
+      },
+      series: { color: '#18009c' }
+    },
+    xAxis: {
+      type: 'datetime',
+      dateTimeLabelFormats: { second: '%H:%M:%S' }
+    },
+    yAxis: {
+      title: { text: 'Litres remaining' }
+    },
+    credits: { enabled: false }
+  });
+  setInterval(function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var x = (new Date()).getTime(),
+        yRaw = parseFloat(this.responseText)
+        y = parseFloat((yRaw / 1000).toFixed(1));
+        if (chart5.series[0].data.length > 40) {
+          chart5.series[0].addPoint([x, y], true, true, true);
+        } else {
+          chart5.series[0].addPoint([x, y], true, false, true);
+        }
+      }
+    };
+    xhttp.open("GET", "/beer5", true);
+    xhttp.send();
+  }, 10000);
+
+  var chart6 = new Highcharts.Chart({
+    chart: { renderTo: 'chart-beer6' },
+    title: { text: 'Beer6' },
+    series: [{
+      showInLegend: false,
+      data: []
+    }],
+    plotOptions: {
+      line: {
+        animation: false,
+        dataLabels: { enabled: true }
+      },
+      series: { color: '#18009c' }
+    },
+    xAxis: {
+      type: 'datetime',
+      dateTimeLabelFormats: { second: '%H:%M:%S' }
+    },
+    yAxis: {
+      title: { text: 'Litres remaining' }
+    },
+    credits: { enabled: false }
+  });
+  setInterval(function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var x = (new Date()).getTime(),
+        yRaw = parseFloat(this.responseText)
+        y = parseFloat((yRaw / 1000).toFixed(1));
+        if (chart6.series[0].data.length > 40) {
+          chart6.series[0].addPoint([x, y], true, true, true);
+        } else {
+          chart6.series[0].addPoint([x, y], true, false, true);
+        }
+      }
+    };
+    xhttp.open("GET", "/beer6", true);
+    xhttp.send();
+  }, 10000);
+
+  var chart7 = new Highcharts.Chart({
+    chart: { renderTo: 'chart-beer7' },
+    title: { text: 'Beer7' },
+    series: [{
+      showInLegend: false,
+      data: []
+    }],
+    plotOptions: {
+      line: {
+        animation: false,
+        dataLabels: { enabled: true }
+      },
+      series: { color: '#18009c' }
+    },
+    xAxis: {
+      type: 'datetime',
+      dateTimeLabelFormats: { second: '%H:%M:%S' }
+    },
+    yAxis: {
+      title: { text: 'Litres remaining' }
+    },
+    credits: { enabled: false }
+  });
+  setInterval(function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var x = (new Date()).getTime(),
+        yRaw = parseFloat(this.responseText)
+        y = parseFloat((yRaw / 1000).toFixed(1));
+        if (chart7.series[0].data.length > 40) {
+          chart7.series[0].addPoint([x, y], true, true, true);
+        } else {
+          chart7.series[0].addPoint([x, y], true, false, true);
+        }
+      }
+    };
+    xhttp.open("GET", "/beer7", true);
+    xhttp.send();
+  }, 10000);
+
+  var chart8 = new Highcharts.Chart({
+    chart: { renderTo: 'chart-beer8' },
+    title: { text: 'Beer8' },
+    series: [{
+      showInLegend: false,
+      data: []
+    }],
+    plotOptions: {
+      line: {
+        animation: false,
+        dataLabels: { enabled: true }
+      },
+      series: { color: '#18009c' }
+    },
+    xAxis: {
+      type: 'datetime',
+      dateTimeLabelFormats: { second: '%H:%M:%S' }
+    },
+    yAxis: {
+      title: { text: 'Litres remaining' }
+    },
+    credits: { enabled: false }
+  });
+  setInterval(function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var x = (new Date()).getTime(),
+        yRaw = parseFloat(this.responseText)
+        y = parseFloat((yRaw / 1000).toFixed(1));
+        if (chart8.series[0].data.length > 40) {
+          chart8.series[0].addPoint([x, y], true, true, true);
+        } else {
+          chart8.series[0].addPoint([x, y], true, false, true);
+        }
+      }
+    };
+    xhttp.open("GET", "/beer8", true);
+    xhttp.send();
+  }, 10000);
+
+  var chart9 = new Highcharts.Chart({
+    chart: { renderTo: 'chart-beer9' },
+    title: { text: 'Beer9' },
+    series: [{
+      showInLegend: false,
+      data: []
+    }],
+    plotOptions: {
+      line: {
+        animation: false,
+        dataLabels: { enabled: true }
+      },
+      series: { color: '#18009c' }
+    },
+    xAxis: {
+      type: 'datetime',
+      dateTimeLabelFormats: { second: '%H:%M:%S' }
+    },
+    yAxis: {
+      title: { text: 'Litres remaining' }
+    },
+    credits: { enabled: false }
+  });
+  setInterval(function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var x = (new Date()).getTime(),
+        yRaw = parseFloat(this.responseText)
+        y = parseFloat((yRaw / 1000).toFixed(1));
+        if (chart9.series[0].data.length > 40) {
+          chart9.series[0].addPoint([x, y], true, true, true);
+        } else {
+          chart9.series[0].addPoint([x, y], true, false, true);
+        }
+      }
+    };
+    xhttp.open("GET", "/beer9", true);
+    xhttp.send();
+  }, 10000);
+
+  var chart10 = new Highcharts.Chart({
+    chart: { renderTo: 'chart-beer10' },
+    title: { text: 'Beer10' },
+    series: [{
+      showInLegend: false,
+      data: []
+    }],
+    plotOptions: {
+      line: {
+        animation: false,
+        dataLabels: { enabled: true }
+      },
+      series: { color: '#18009c' }
+    },
+    xAxis: {
+      type: 'datetime',
+      dateTimeLabelFormats: { second: '%H:%M:%S' }
+    },
+    yAxis: {
+      title: { text: 'Litres remaining' }
+    },
+    credits: { enabled: false }
+  });
+  setInterval(function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var x = (new Date()).getTime(),
+        yRaw = parseFloat(this.responseText)
+        y = parseFloat((yRaw / 1000).toFixed(1));
+        if (chart10.series[0].data.length > 40) {
+          chart10.series[0].addPoint([x, y], true, true, true);
+        } else {
+          chart10.series[0].addPoint([x, y], true, false, true);
+        }
+      }
+    };
+    xhttp.open("GET", "/beer10", true);
+    xhttp.send();
+  }, 10000);
+</script>
+
+</html>
