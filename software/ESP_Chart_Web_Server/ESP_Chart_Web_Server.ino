@@ -44,10 +44,10 @@ Preferences preferences;
 String pwifiSSID;
 String pwifiPassword;
 
-const char* wifiSSID = "ShelveNET";
-const char* wifiPassword = "buttpiratry";
+const char *wifiSSID = "ShelveNET";
+const char *wifiPassword = "buttpiratry";
 
-void(* resetFunc) (void) = 0;  // declare reset fuction at address 0
+void (*resetFunc)(void) = 0; // declare reset fuction at address 0
 
 const char *PARAM_INPUT_0 = "numberofbeers";
 const char *PARAM_INPUT_1 = "beer1name";
@@ -464,7 +464,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_0)->value();
                 inputParam = PARAM_INPUT_0;
                 preferences.begin("numberOfBeers", false); // tell preferences there is data coming
-                preferences.putInt("beersNumber", inputMessage.toInt()); 
+                preferences.putInt("beersNumber", inputMessage.toInt());
                 numberOfBeers = inputMessage.toInt();
                 Serial.println("Number of beers to display saved using Preference");
                 preferences.end(); // stop preferences from accepting data
@@ -474,7 +474,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_1)->value();
                 inputParam = PARAM_INPUT_1;
                 preferences.begin("beerNames", false); // tell preferences there is data coming
-                preferences.putString("beer1Name", inputMessage); 
+                preferences.putString("beer1Name", inputMessage);
                 beer1Name = inputMessage;
                 Serial.println("Beer 1 name saved using Preference");
                 preferences.end(); // stop preferences from accepting data
@@ -484,7 +484,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_2)->value();
                 inputParam = PARAM_INPUT_2;
                 preferences.begin("beerNames", false); // tell preferences there is data coming
-                preferences.putString("beer2Name", inputMessage); 
+                preferences.putString("beer2Name", inputMessage);
                 beer2Name = inputMessage;
                 Serial.println("Beer 2 name saved using Preference");
                 preferences.end(); // stop preferences from accepting data
@@ -494,7 +494,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_3)->value();
                 inputParam = PARAM_INPUT_3;
                 preferences.begin("beerNames", false); // tell preferences there is data coming
-                preferences.putString("beer3Name", inputMessage); 
+                preferences.putString("beer3Name", inputMessage);
                 beer3Name = inputMessage;
                 Serial.println("Beer 3 name saved using Preference");
                 preferences.end(); // stop preferences from accepting data
@@ -504,7 +504,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_4)->value();
                 inputParam = PARAM_INPUT_4;
                 preferences.begin("beerNames", false); // tell preferences there is data coming
-                preferences.putString("beer4Name", inputMessage); 
+                preferences.putString("beer4Name", inputMessage);
                 beer4Name = inputMessage;
                 Serial.println("Beer 4 name saved using Preference");
                 preferences.end(); // stop preferences from accepting data
@@ -514,7 +514,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_5)->value();
                 inputParam = PARAM_INPUT_5;
                 preferences.begin("beerNames", false); // tell preferences there is data coming
-                preferences.putString("beer5Name", inputMessage); 
+                preferences.putString("beer5Name", inputMessage);
                 beer5Name = inputMessage;
                 Serial.println("Beer 5 name saved using Preference");
                 preferences.end(); // stop preferences from accepting data
@@ -524,7 +524,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_6)->value();
                 inputParam = PARAM_INPUT_6;
                 preferences.begin("beerNames", false); // tell preferences there is data coming
-                preferences.putString("beer6Name", inputMessage); 
+                preferences.putString("beer6Name", inputMessage);
                 beer6Name = inputMessage;
                 Serial.println("Beer 6 name saved using Preference");
                 preferences.end(); // stop preferences from accepting data
@@ -534,7 +534,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_7)->value();
                 inputParam = PARAM_INPUT_7;
                 preferences.begin("beerNames", false); // tell preferences there is data coming
-                preferences.putString("beer7Name", inputMessage); 
+                preferences.putString("beer7Name", inputMessage);
                 beer7Name = inputMessage;
                 Serial.println("Beer 7 name saved using Preference");
                 preferences.end(); // stop preferences from accepting data
@@ -544,7 +544,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_8)->value();
                 inputParam = PARAM_INPUT_8;
                 preferences.begin("beerNames", false); // tell preferences there is data coming
-                preferences.putString("beer8Name", inputMessage); 
+                preferences.putString("beer8Name", inputMessage);
                 beer8Name = inputMessage;
                 Serial.println("Beer 8 name saved using Preference");
                 preferences.end(); // stop preferences from accepting data
@@ -554,7 +554,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_9)->value();
                 inputParam = PARAM_INPUT_9;
                 preferences.begin("beerNames", false); // tell preferences there is data coming
-                preferences.putString("beer9Name", inputMessage); 
+                preferences.putString("beer9Name", inputMessage);
                 beer9Name = inputMessage;
                 Serial.println("Beer 9 name saved using Preference");
                 preferences.end(); // stop preferences from accepting data
@@ -564,7 +564,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_10)->value();
                 inputParam = PARAM_INPUT_10;
                 preferences.begin("beerNames", false); // tell preferences there is data coming
-                preferences.putString("beer10Name", inputMessage); 
+                preferences.putString("beer10Name", inputMessage);
                 beer10Name = inputMessage;
                 Serial.println("Beer 10 name saved using Preference");
                 preferences.end(); // stop preferences from accepting data
@@ -574,7 +574,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_11)->value();
                 inputParam = PARAM_INPUT_11;
                 preferences.begin("beerVolumes", false); // tell preferences there is data coming
-                preferences.putInt("beer1Volume", inputMessage.toInt() * 1000); 
+                preferences.putInt("beer1Volume", inputMessage.toInt() * 1000);
                 beer1Volume = inputMessage.toInt() * 1000;
                 Serial.println("Beer 1 volume saved using Preference");
                 preferences.end(); // stop preferences from accepting data
@@ -584,7 +584,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_12)->value();
                 inputParam = PARAM_INPUT_10;
                 preferences.begin("beerVolumes", false); // tell preferences there is data coming
-                preferences.putInt("beer2Volume", inputMessage.toInt() * 1000); 
+                preferences.putInt("beer2Volume", inputMessage.toInt() * 1000);
                 beer2Volume = inputMessage.toInt() * 1000;
                 Serial.println("Beer 2 volume saved using Preference");
                 preferences.end(); // stop preferences from accepting data
@@ -594,7 +594,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_13)->value();
                 inputParam = PARAM_INPUT_13;
                 preferences.begin("beerVolumes", false); // tell preferences there is data coming
-                preferences.putInt("beer3Volume", inputMessage.toInt() * 1000); 
+                preferences.putInt("beer3Volume", inputMessage.toInt() * 1000);
                 beer3Volume = inputMessage.toInt() * 1000;
                 Serial.println("Beer 3 volume saved using Preference");
                 preferences.end(); // stop preferences from accepting data
@@ -604,7 +604,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_14)->value();
                 inputParam = PARAM_INPUT_14;
                 preferences.begin("beerVolumes", false); // tell preferences there is data coming
-                preferences.putInt("beer4Volume", inputMessage.toInt() * 1000); 
+                preferences.putInt("beer4Volume", inputMessage.toInt() * 1000);
                 beer4Volume = inputMessage.toInt() * 1000;
                 Serial.println("Beer 4 volume saved using Preference");
                 preferences.end(); // stop preferences from accepting data
@@ -614,7 +614,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_15)->value();
                 inputParam = PARAM_INPUT_15;
                 preferences.begin("beerVolumes", false); // tell preferences there is data coming
-                preferences.putInt("beer5Volume", inputMessage.toInt() * 1000); 
+                preferences.putInt("beer5Volume", inputMessage.toInt() * 1000);
                 beer5Volume = inputMessage.toInt() * 1000;
                 Serial.println("Beer 5 volume saved using Preference");
                 preferences.end(); // stop preferences from accepting data
@@ -624,7 +624,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_16)->value();
                 inputParam = PARAM_INPUT_16;
                 preferences.begin("beerVolumes", false); // tell preferences there is data coming
-                preferences.putInt("beer6Volume", inputMessage.toInt() * 1000); 
+                preferences.putInt("beer6Volume", inputMessage.toInt() * 1000);
                 beer6Volume = inputMessage.toInt() * 1000;
                 Serial.println("Beer 6 volume saved using Preference");
                 preferences.end(); // stop preferences from accepting data
@@ -634,7 +634,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_17)->value();
                 inputParam = PARAM_INPUT_17;
                 preferences.begin("beerVolumes", false); // tell preferences there is data coming
-                preferences.putInt("beer7Volume", inputMessage.toInt() * 1000); 
+                preferences.putInt("beer7Volume", inputMessage.toInt() * 1000);
                 beer7Volume = inputMessage.toInt() * 1000;
                 Serial.println("Beer 7 volume saved using Preference");
                 preferences.end(); // stop preferences from accepting data
@@ -644,7 +644,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_18)->value();
                 inputParam = PARAM_INPUT_18;
                 preferences.begin("beerVolumes", false); // tell preferences there is data coming
-                preferences.putInt("beer8Volume", inputMessage.toInt() * 1000); 
+                preferences.putInt("beer8Volume", inputMessage.toInt() * 1000);
                 beer8Volume = inputMessage.toInt() * 1000;
                 Serial.println("Beer 8 volume saved using Preference");
                 preferences.end(); // stop preferences from accepting data
@@ -654,7 +654,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_19)->value();
                 inputParam = PARAM_INPUT_19;
                 preferences.begin("beerVolumes", false); // tell preferences there is data coming
-                preferences.putInt("beer9Volume", inputMessage.toInt() * 1000); 
+                preferences.putInt("beer9Volume", inputMessage.toInt() * 1000);
                 beer9Volume = inputMessage.toInt() * 1000;
                 Serial.println("Beer 9 volume saved using Preference");
                 preferences.end(); // stop preferences from accepting data
@@ -664,7 +664,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_20)->value();
                 inputParam = PARAM_INPUT_20;
                 preferences.begin("beerVolumes", false); // tell preferences there is data coming
-                preferences.putInt("beer10Volume", inputMessage.toInt() * 1000); 
+                preferences.putInt("beer10Volume", inputMessage.toInt() * 1000);
                 beer10Volume = inputMessage.toInt() * 1000;
                 Serial.println("Beer 10 volume saved using Preference");
                 preferences.end(); // stop preferences from accepting data
@@ -674,7 +674,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_21)->value();
                 inputParam = PARAM_INPUT_21;
                 preferences.begin("credentials", false); // tell preferences there is data coming
-                preferences.putString("pwifiSSID", inputMessage); 
+                preferences.putString("pwifiSSID", inputMessage);
                 Serial.println("WiFi SSID saved using Preference");
                 preferences.end(); // stop preferences from accepting data
               }
@@ -683,7 +683,7 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_22)->value();
                 inputParam = PARAM_INPUT_22;
                 preferences.begin("credentials", false); // tell preferences there is data coming
-                preferences.putString("pwifiPassword", inputMessage); 
+                preferences.putString("pwifiPassword", inputMessage);
                 Serial.println("WiFi pasword saved using Preferences");
                 preferences.end(); // stop preferences from accepting data
               }
@@ -1123,7 +1123,6 @@ void readFlows()
   }
 }
 
-
 void setup()
 {
   // Serial port for debugging purposes
@@ -1141,11 +1140,12 @@ void setup()
 
   // Connect to Wi-Fi
   preferences.begin("credentials", false);
- 
-  pwifiSSID = preferences.getString("pwifiSSID", ""); 
+
+  pwifiSSID = preferences.getString("pwifiSSID", "");
   pwifiPassword = preferences.getString("pwifiPassword", "");
 
-  if (pwifiSSID == "" || pwifiPassword == ""){
+  if (pwifiSSID == "" || pwifiPassword == "")
+  {
     Serial.println("No values saved for ssid or password");
     WiFi.softAP("BeerTastic", "KegTastic");
     Serial.println();
@@ -1156,18 +1156,19 @@ void setup()
     Serial.print("Password: ");
     Serial.println("KegTastic");
   }
-  else 
+  else
   {
     // Connect to Wi-Fi
     Serial.println("WiFi credentials stored in flash");
     WiFi.mode(WIFI_STA);
     WiFi.begin(pwifiSSID.c_str(), pwifiPassword.c_str());
     Serial.println("Connecting to WiFi ...");
-    while (WiFi.status() != WL_CONNECTED) {
+    while (WiFi.status() != WL_CONNECTED)
+    {
       Serial.print('.');
       delay(1000);
     }
-    Serial.println(WiFi.localIP());  
+    Serial.println(WiFi.localIP());
   }
 
   initWebSocket();
