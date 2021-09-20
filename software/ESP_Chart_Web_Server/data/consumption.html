@@ -66,6 +66,30 @@
     },
     credits: { enabled: false }
   });
+  var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var x = (new Date()).getTime(),
+        yRaw = parseFloat(this.responseText)
+          y = parseFloat((yRaw / 1000).toFixed(1));
+          if (chart1.series[0].data.length > 40) {
+          chart1.series[0].addPoint([x, y], true, true, true);
+        } else {
+          chart1.series[0].addPoint([x, y], true, false, true);
+        }
+      }
+    };
+    xhttp.open("GET", "/beerVolume1", true);
+    xhttp.send();
+  /* var xhttpn = new XMLHttpRequest();
+    xhttpn.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        chart1.setTitle({text: this.responseText});
+
+      }
+    };
+    xhttpn.open("GET", "/beerName1", true);
+    xhttpn.send(); */
   setInterval(function () {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -80,7 +104,7 @@
         }
       }
     };
-    xhttp.open("GET", "/beer1", true);
+    xhttp.open("GET", "/beerVolume1", true);
     xhttp.send();
   }, 10000);
 
@@ -106,6 +130,21 @@
     },
     credits: { enabled: false }
   });
+  var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var x = (new Date()).getTime(),
+        yRaw = parseFloat(this.response)
+        y = parseFloat((yRaw / 1000).toFixed(1));
+        if (chart2.series[0].data.length > 40) {
+          chart2.series[0].addPoint([x, y], true, true, true);
+        } else {
+          chart2.series[0].addPoint([x, y], true, false, true);
+        }
+      }
+    };
+    xhttp.open("GET", "/beerVolume2", true);
+    xhttp.send();
   setInterval(function () {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -120,7 +159,7 @@
         }
       }
     };
-    xhttp.open("GET", "/beer2", true);
+    xhttp.open("GET", "/beerVolume2", true);
     xhttp.send();
   }, 10000);
 
@@ -147,6 +186,21 @@
     },
     credits: { enabled: false }
   });
+  var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var x = (new Date()).getTime(),
+        yRaw = parseFloat(this.responseText)
+        y = parseFloat((yRaw / 1000).toFixed(1));
+        if (chart3.series[0].data.length > 40) {
+          chart3.series[0].addPoint([x, y], true, true, true);
+        } else {
+          chart3.series[0].addPoint([x, y], true, false, true);
+        }
+      }
+    };
+    xhttp.open("GET", "/beerVolume3", true);
+    xhttp.send();
   setInterval(function () {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -161,7 +215,7 @@
         }
       }
     };
-    xhttp.open("GET", "/beer3", true);
+    xhttp.open("GET", "/beerVolume3", true);
     xhttp.send();
   }, 10000);
 
@@ -188,6 +242,21 @@
     },
     credits: { enabled: false }
   });
+  var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var x = (new Date()).getTime(),
+        yRaw = parseFloat(this.responseText)
+        y = parseFloat((yRaw / 1000).toFixed(1));
+        if (chart4.series[0].data.length > 40) {
+          chart4.series[0].addPoint([x, y], true, true, true);
+        } else {
+          chart4.series[0].addPoint([x, y], true, false, true);
+        }
+      }
+    };
+    xhttp.open("GET", "/beerVolume4", true);
+    xhttp.send();
   setInterval(function () {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -202,7 +271,7 @@
         }
       }
     };
-    xhttp.open("GET", "/beer4", true);
+    xhttp.open("GET", "/beerVolume4", true);
     xhttp.send();
   }, 10000);
 
@@ -229,6 +298,21 @@
     },
     credits: { enabled: false }
   });
+  var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var x = (new Date()).getTime(),
+        yRaw = parseFloat(this.responseText)
+        y = parseFloat((yRaw / 1000).toFixed(1));
+        if (chart5.series[0].data.length > 40) {
+          chart5.series[0].addPoint([x, y], true, true, true);
+        } else {
+          chart5.series[0].addPoint([x, y], true, false, true);
+        }
+      }
+    };
+    xhttp.open("GET", "/beerVolume5", true);
+    xhttp.send();
   setInterval(function () {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -243,7 +327,7 @@
         }
       }
     };
-    xhttp.open("GET", "/beer5", true);
+    xhttp.open("GET", "/beerVolume5", true);
     xhttp.send();
   }, 10000);
 
@@ -270,6 +354,21 @@
     },
     credits: { enabled: false }
   });
+  var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var x = (new Date()).getTime(),
+        yRaw = parseFloat(this.responseText)
+        y = parseFloat((yRaw / 1000).toFixed(1));
+        if (chart6.series[0].data.length > 40) {
+          chart6.series[0].addPoint([x, y], true, true, true);
+        } else {
+          chart6.series[0].addPoint([x, y], true, false, true);
+        }
+      }
+    };
+    xhttp.open("GET", "/beerVolume6", true);
+    xhttp.send();
   setInterval(function () {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -284,7 +383,7 @@
         }
       }
     };
-    xhttp.open("GET", "/beer6", true);
+    xhttp.open("GET", "/beerVolume6", true);
     xhttp.send();
   }, 10000);
 
@@ -311,6 +410,21 @@
     },
     credits: { enabled: false }
   });
+  var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var x = (new Date()).getTime(),
+        yRaw = parseFloat(this.responseText)
+        y = parseFloat((yRaw / 1000).toFixed(1));
+        if (chart7.series[0].data.length > 40) {
+          chart7.series[0].addPoint([x, y], true, true, true);
+        } else {
+          chart7.series[0].addPoint([x, y], true, false, true);
+        }
+      }
+    };
+    xhttp.open("GET", "/beerVolume7", true);
+    xhttp.send();
   setInterval(function () {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -325,7 +439,7 @@
         }
       }
     };
-    xhttp.open("GET", "/beer7", true);
+    xhttp.open("GET", "/beerVolume7", true);
     xhttp.send();
   }, 10000);
 
@@ -352,6 +466,21 @@
     },
     credits: { enabled: false }
   });
+  var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var x = (new Date()).getTime(),
+        yRaw = parseFloat(this.responseText)
+        y = parseFloat((yRaw / 1000).toFixed(1));
+        if (chart8.series[0].data.length > 40) {
+          chart8.series[0].addPoint([x, y], true, true, true);
+        } else {
+          chart8.series[0].addPoint([x, y], true, false, true);
+        }
+      }
+    };
+    xhttp.open("GET", "/beerVolume8", true);
+    xhttp.send();
   setInterval(function () {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -366,7 +495,7 @@
         }
       }
     };
-    xhttp.open("GET", "/beer8", true);
+    xhttp.open("GET", "/beerVolume8", true);
     xhttp.send();
   }, 10000);
 
@@ -393,6 +522,21 @@
     },
     credits: { enabled: false }
   });
+  var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var x = (new Date()).getTime(),
+        yRaw = parseFloat(this.responseText)
+        y = parseFloat((yRaw / 1000).toFixed(1));
+        if (chart9.series[0].data.length > 40) {
+          chart9.series[0].addPoint([x, y], true, true, true);
+        } else {
+          chart9.series[0].addPoint([x, y], true, false, true);
+        }
+      }
+    };
+    xhttp.open("GET", "/beerVolume9", true);
+    xhttp.send();
   setInterval(function () {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -407,7 +551,7 @@
         }
       }
     };
-    xhttp.open("GET", "/beer9", true);
+    xhttp.open("GET", "/beerVolume9", true);
     xhttp.send();
   }, 10000);
 
@@ -434,6 +578,21 @@
     },
     credits: { enabled: false }
   });
+  var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var x = (new Date()).getTime(),
+        yRaw = parseFloat(this.responseText)
+        y = parseFloat((yRaw / 1000).toFixed(1));
+        if (chart10.series[0].data.length > 40) {
+          chart10.series[0].addPoint([x, y], true, true, true);
+        } else {
+          chart10.series[0].addPoint([x, y], true, false, true);
+        }
+      }
+    };
+    xhttp.open("GET", "/beerVolume10", true);
+    xhttp.send();
   setInterval(function () {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -448,7 +607,7 @@
         }
       }
     };
-    xhttp.open("GET", "/beer10", true);
+    xhttp.open("GET", "/beerVolume10", true);
     xhttp.send();
   }, 10000);
 </script>

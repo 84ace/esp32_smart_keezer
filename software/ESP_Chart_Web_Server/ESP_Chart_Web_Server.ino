@@ -8,6 +8,7 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
 #include <Preferences.h>
+#include <SimpleTimer.h>
 
 #define REV1 // PCB REV 1
 
@@ -25,17 +26,28 @@
 #define SENSOR10 26 // beer10 17
 #endif
 
+// LED stuff
+int ledState = HIGH;    
+int stopLED = 1;
+unsigned long previousMillisLED = 0;
+long blinkInterval = 1000;  
+
 // ToDo: use STA_AP mode to allow initial setup over WiFi - done 18/09/21
-// ToDo: create OTA for .bin firmware updates - done 18/09/21
-// ToDo: create OTA for SPIFFS partition updates - done 18/09/21
+// ToDo: create OTA upload page for .bin firmware updates - done 18/09/21
+// ToDo: create OTA upload page for SPIFFS partition updates - done 18/09/21
 // ToDo: create beer volume set from in settings - done 18/09/21
-// ToDo: add a flow calibration/modifier in settings
-// ToDo: save beer names to flash so they are persitent - done 19/09/21
-// ToDo: save beer volumes to flash so they are persitent - done 19/09/21
-// ToDo: validate beer volumes and name input field data < this probably won't happen ;)
-// ToDo: configure overview chart to dynamically update
-// ToDo: configure charts to dynamically update beer names and volumes
+// ToDo: add a flow calibration/modifier in settings - done 20/09/21
+// ToDo: save beer names from settings to flash so they are persitent - done 19/09/21
+// ToDo: save beer volumes from settings to flash so they are persitent - done 19/09/21
+// ToDo: save beer volumes from flow readings to flash so they are persitent
+// ToDo: validate beer volumes and name input field data - done 19/09/21
+// ToDo: configure overview chart to dynamically update 
+// ToDo: configure consumption chart to dynamically update names and volumes - volumes done 19/09/21
+// ToDo: configure overview to dynamically update beer names and volumes
+// ToDo: add an fast LED blink to indicate there is an error (wifi not connected etc) - done 20/09/21
+// ToDo: add visual feedback that form submitted correctly - done 20/09/21
 // ToDo: implement a mode press button to wipe WiFi creds and trigger WiFi AP for setup
+// ToDo: create a way to backup and restore beer data before a firmware upgrade - done (not needed) 19/09/21
 // ToDo: test/build CSS HTML layouts for different sized screens/mobile < this probably won't happen ;)
 
 // Replace with your network credentials
@@ -46,6 +58,8 @@ String pwifiPassword;
 
 const char *wifiSSID = "ShelveNET";
 const char *wifiPassword = "buttpiratry";
+
+int wifiDisconnected = 0;
 
 void (*resetFunc)(void) = 0; // declare reset fuction at address 0
 
@@ -73,29 +87,41 @@ const char *PARAM_INPUT_20 = "beer10Volume";
 const char *PARAM_INPUT_21 = "wifiSSID";
 const char *PARAM_INPUT_22 = "wifiPassword";
 const char *PARAM_INPUT_23 = "reset";
+const char *PARAM_INPUT_24 = "flowMultiplier";
 
-String beer1Name = "beer1Name";
-String beer2Name = "beer2Name";
-String beer3Name = "beer3Name";
-String beer4Name = "beer4Name";
-String beer5Name = "beer5Name";
-String beer6Name = "beer6Name";
-String beer7Name = "beer7Name";
-String beer8Name = "beer8Name";
-String beer9Name = "beer9Name";
-String beer10Name = "beer10Name";
+String beer1Name;
+String beer2Name;
+String beer3Name;
+String beer4Name;
+String beer5Name;
+String beer6Name;
+String beer7Name;
+String beer8Name;
+String beer9Name;
+String beer10Name;
 
 int numberOfBeers;
-int beer1Volume;
-int beer2Volume;
-int beer3Volume;
-int beer4Volume;
-int beer5Volume;
-int beer6Volume;
-int beer7Volume;
-int beer8Volume;
-int beer9Volume;
-int beer10Volume;
+float beer1Volume;
+float beer2Volume;
+float beer3Volume;
+float beer4Volume;
+float beer5Volume;
+float beer6Volume;
+float beer7Volume;
+float beer8Volume;
+float beer9Volume;
+float beer10Volume;
+float tempBeer1Volume;
+float tempBeer2Volume;
+float tempBeer3Volume;
+float tempBeer4Volume;
+float tempBeer5Volume;
+float tempBeer6Volume;
+float tempBeer7Volume;
+float tempBeer8Volume;
+float tempBeer9Volume;
+float tempBeer10Volume;
+float calibrationFactor = 98;
 
 bool status;
 char promBytes[32];
@@ -107,7 +133,7 @@ int flowMilliLitres1;
 int totalMilliLitres1;
 byte pulseSec1 = 0;
 volatile byte pulseCount1;
-int beer1Litres = 0;
+float beer1Litres = 0;
 char beer1LitresChar[6] = "";
 float flowRate1;
 
@@ -123,7 +149,7 @@ int flowMilliLitres2;
 int totalMilliLitres2;
 byte pulseSec2 = 0;
 volatile byte pulseCount2;
-int beer2Litres = 0;
+float beer2Litres = 0;
 char beer2LitresChar[6] = "";
 float flowRate2;
 
@@ -139,7 +165,7 @@ int flowMilliLitres3;
 int totalMilliLitres3;
 byte pulseSec3 = 0;
 volatile byte pulseCount3;
-int beer3Litres = 0;
+float beer3Litres = 0;
 char beer3LitresChar[6] = "";
 float flowRate3;
 
@@ -155,7 +181,7 @@ int flowMilliLitres4;
 int totalMilliLitres4;
 byte pulseSec4 = 0;
 volatile byte pulseCount4;
-int beer4Litres = 0;
+float beer4Litres = 0;
 char beer4LitresChar[6] = "";
 float flowRate4;
 
@@ -171,7 +197,7 @@ int flowMilliLitres5;
 int totalMilliLitres5;
 byte pulseSec5 = 0;
 volatile byte pulseCount5;
-int beer5Litres = 0;
+float beer5Litres = 0;
 char beer5LitresChar[6] = "";
 float flowRate5;
 
@@ -187,7 +213,7 @@ int flowMilliLitres6;
 int totalMilliLitres6;
 byte pulseSec6 = 0;
 volatile byte pulseCount6;
-int beer6Litres = 0;
+float beer6Litres = 0;
 char beer6LitresChar[6] = "";
 float flowRate6;
 
@@ -203,7 +229,7 @@ int flowMilliLitres7;
 int totalMilliLitres7;
 byte pulseSec7 = 0;
 volatile byte pulseCount7;
-int beer7Litres = 0;
+float beer7Litres = 0;
 char beer7LitresChar[6] = "";
 float flowRate7;
 
@@ -219,7 +245,7 @@ int flowMilliLitres8;
 int totalMilliLitres8;
 byte pulseSec8 = 0;
 volatile byte pulseCount8;
-int beer8Litres = 0;
+float beer8Litres = 0;
 char beer8LitresChar[6] = "";
 float flowRate8;
 
@@ -235,7 +261,7 @@ int flowMilliLitres9;
 int totalMilliLitres9;
 byte pulseSec9 = 0;
 volatile byte pulseCount9;
-int beer9Litres = 0;
+float beer9Litres = 0;
 char beer9LitresChar[6] = "";
 float flowRate9;
 
@@ -251,7 +277,7 @@ int flowMilliLitres10;
 int totalMilliLitres10;
 byte pulseSec10 = 0;
 volatile byte pulseCount10;
-int beer10Litres = 0;
+float beer10Litres = 0;
 char beer10LitresChar[6] = "";
 float flowRate10;
 
@@ -260,11 +286,9 @@ void IRAM_ATTR pulseCount10er()
   pulseCount10++;
 }
 
-int interval = 1000;
-int ledLoop = 1;
-float calibrationFactor = 98;
+SimpleTimer timer;
 
-boolean ledState = LOW;
+int interval = 1000; // wait time before comparing flow data
 
 char stats[] = "[20, 18, 16, 14, 12, 10, 8, 6, 4, 0]";
 
@@ -272,24 +296,6 @@ char stats[] = "[20, 18, 16, 14, 12, 10, 8, 6, 4, 0]";
 AsyncWebServer server(80);
 AsyncWebSocket ws("/ws");
 
-void notifyClients()
-{
-  ws.textAll(String(ledState));
-}
-
-void handleWebSocketMessage(void *arg, uint8_t *data, size_t len)
-{
-  AwsFrameInfo *info = (AwsFrameInfo *)arg;
-  if (info->final && info->index == 0 && info->len == len && info->opcode == WS_TEXT)
-  {
-    data[len] = 0;
-    if (strcmp((char *)data, "toggle") == 0)
-    {
-      ledState = !ledState;
-      notifyClients();
-    }
-  }
-}
 
 void onEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type,
              void *arg, uint8_t *data, size_t len)
@@ -301,9 +307,6 @@ void onEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType 
     break;
   case WS_EVT_DISCONNECT:
     Serial.printf("WebSocket client #%u disconnected\n", client->id());
-    break;
-  case WS_EVT_DATA:
-    handleWebSocketMessage(arg, data, len);
     break;
   case WS_EVT_PONG:
   case WS_EVT_ERROR:
@@ -324,7 +327,6 @@ void notFound(AsyncWebServerRequest *request)
 
 void setupFlowData()
 {
-  pinMode(LED_BUILTIN, OUTPUT);
   pinMode(SENSOR1, INPUT_PULLUP);
   pinMode(SENSOR2, INPUT_PULLUP);
   pinMode(SENSOR3, INPUT_PULLUP);
@@ -424,26 +426,48 @@ void setupServer()
             { request->send(SPIFFS, "/index.html"); });
   server.on("/stats", HTTP_GET, [](AsyncWebServerRequest *request)
             { request->send_P(200, "text/plain", stats); });
-  server.on("/beer1", HTTP_GET, [](AsyncWebServerRequest *request)
-            { request->send_P(200, "text/plain", beer1LitresChar); });
-  server.on("/beer2", HTTP_GET, [](AsyncWebServerRequest *request)
+  server.on("/beerVolume1", HTTP_GET, [](AsyncWebServerRequest *request)
+            { request->send_P(200, "text/plain", dtostrf(beer1Volume, 6, 2, beer1LitresChar)); });
+  server.on("/beerVolume2", HTTP_GET, [](AsyncWebServerRequest *request)
             { request->send_P(200, "text/plain", beer2LitresChar); });
-  server.on("/beer3", HTTP_GET, [](AsyncWebServerRequest *request)
+  server.on("/beerVolume3", HTTP_GET, [](AsyncWebServerRequest *request)
             { request->send_P(200, "text/plain", beer3LitresChar); });
-  server.on("/beer4", HTTP_GET, [](AsyncWebServerRequest *request)
+  server.on("/beerVolume4", HTTP_GET, [](AsyncWebServerRequest *request)
             { request->send_P(200, "text/plain", beer4LitresChar); });
-  server.on("/beer5", HTTP_GET, [](AsyncWebServerRequest *request)
+  server.on("/beerVolume5", HTTP_GET, [](AsyncWebServerRequest *request)
             { request->send_P(200, "text/plain", beer5LitresChar); });
-  server.on("/beer6", HTTP_GET, [](AsyncWebServerRequest *request)
+  server.on("/beerVolume6", HTTP_GET, [](AsyncWebServerRequest *request)
             { request->send_P(200, "text/plain", beer6LitresChar); });
-  server.on("/beer7", HTTP_GET, [](AsyncWebServerRequest *request)
+  server.on("/beerVolume7", HTTP_GET, [](AsyncWebServerRequest *request)
             { request->send_P(200, "text/plain", beer7LitresChar); });
-  server.on("/beer8", HTTP_GET, [](AsyncWebServerRequest *request)
+  server.on("/beerVolume8", HTTP_GET, [](AsyncWebServerRequest *request)
             { request->send_P(200, "text/plain", beer8LitresChar); });
-  server.on("/beer9", HTTP_GET, [](AsyncWebServerRequest *request)
+  server.on("/beerVolume9", HTTP_GET, [](AsyncWebServerRequest *request)
             { request->send_P(200, "text/plain", beer9LitresChar); });
-  server.on("/beer10", HTTP_GET, [](AsyncWebServerRequest *request)
+  server.on("/beerVolume10", HTTP_GET, [](AsyncWebServerRequest *request)
             { request->send_P(200, "text/plain", beer10LitresChar); });
+  server.on("/beerName1", HTTP_GET, [](AsyncWebServerRequest *request)
+            { request->send_P(200, "text/plain", beer1Name.c_str()); 
+              Serial.println("/beerName1 endpoint hit!");
+            });
+  server.on("/beerName2", HTTP_GET, [](AsyncWebServerRequest *request)
+            { request->send_P(200, "text/plain", beer2Name.c_str()); });
+  server.on("/beerName3", HTTP_GET, [](AsyncWebServerRequest *request)
+            { request->send_P(200, "text/plain", beer3Name.c_str()); });
+  server.on("/beerName4", HTTP_GET, [](AsyncWebServerRequest *request)
+            { request->send_P(200, "text/plain", beer4Name.c_str()); });
+  server.on("/beerName5", HTTP_GET, [](AsyncWebServerRequest *request)
+            { request->send_P(200, "text/plain", beer5Name.c_str()); });
+  server.on("/beerName6", HTTP_GET, [](AsyncWebServerRequest *request)
+            { request->send_P(200, "text/plain", beer6Name.c_str()); });
+  server.on("/beerName7", HTTP_GET, [](AsyncWebServerRequest *request)
+            { request->send_P(200, "text/plain", beer7Name.c_str()); });
+  server.on("/beerName8", HTTP_GET, [](AsyncWebServerRequest *request)
+            { request->send_P(200, "text/plain", beer8Name.c_str()); });
+  server.on("/beerName9", HTTP_GET, [](AsyncWebServerRequest *request)
+            { request->send_P(200, "text/plain", beer9Name.c_str()); });
+  server.on("/beerName10", HTTP_GET, [](AsyncWebServerRequest *request)
+            { request->send_P(200, "text/plain", beer10Name.c_str()); });
 
   // Beer naming form
   server.on("/settings", HTTP_GET, [](AsyncWebServerRequest *request)
@@ -476,6 +500,7 @@ void setupServer()
                 preferences.begin("beerNames", false); // tell preferences there is data coming
                 preferences.putString("beer1Name", inputMessage);
                 beer1Name = inputMessage;
+                totalMilliLitres1 = 0;
                 Serial.println("Beer 1 name saved using Preference");
                 preferences.end(); // stop preferences from accepting data
               }
@@ -486,6 +511,7 @@ void setupServer()
                 preferences.begin("beerNames", false); // tell preferences there is data coming
                 preferences.putString("beer2Name", inputMessage);
                 beer2Name = inputMessage;
+                totalMilliLitres2 = 0;
                 Serial.println("Beer 2 name saved using Preference");
                 preferences.end(); // stop preferences from accepting data
               }
@@ -496,6 +522,7 @@ void setupServer()
                 preferences.begin("beerNames", false); // tell preferences there is data coming
                 preferences.putString("beer3Name", inputMessage);
                 beer3Name = inputMessage;
+                totalMilliLitres3 = 0;
                 Serial.println("Beer 3 name saved using Preference");
                 preferences.end(); // stop preferences from accepting data
               }
@@ -506,6 +533,7 @@ void setupServer()
                 preferences.begin("beerNames", false); // tell preferences there is data coming
                 preferences.putString("beer4Name", inputMessage);
                 beer4Name = inputMessage;
+                totalMilliLitres4 = 0;
                 Serial.println("Beer 4 name saved using Preference");
                 preferences.end(); // stop preferences from accepting data
               }
@@ -516,6 +544,7 @@ void setupServer()
                 preferences.begin("beerNames", false); // tell preferences there is data coming
                 preferences.putString("beer5Name", inputMessage);
                 beer5Name = inputMessage;
+                totalMilliLitres5 = 0;
                 Serial.println("Beer 5 name saved using Preference");
                 preferences.end(); // stop preferences from accepting data
               }
@@ -526,6 +555,7 @@ void setupServer()
                 preferences.begin("beerNames", false); // tell preferences there is data coming
                 preferences.putString("beer6Name", inputMessage);
                 beer6Name = inputMessage;
+                totalMilliLitres6 = 0;
                 Serial.println("Beer 6 name saved using Preference");
                 preferences.end(); // stop preferences from accepting data
               }
@@ -536,6 +566,7 @@ void setupServer()
                 preferences.begin("beerNames", false); // tell preferences there is data coming
                 preferences.putString("beer7Name", inputMessage);
                 beer7Name = inputMessage;
+                totalMilliLitres7 = 0;
                 Serial.println("Beer 7 name saved using Preference");
                 preferences.end(); // stop preferences from accepting data
               }
@@ -546,6 +577,7 @@ void setupServer()
                 preferences.begin("beerNames", false); // tell preferences there is data coming
                 preferences.putString("beer8Name", inputMessage);
                 beer8Name = inputMessage;
+                totalMilliLitres8 = 0;
                 Serial.println("Beer 8 name saved using Preference");
                 preferences.end(); // stop preferences from accepting data
               }
@@ -556,6 +588,7 @@ void setupServer()
                 preferences.begin("beerNames", false); // tell preferences there is data coming
                 preferences.putString("beer9Name", inputMessage);
                 beer9Name = inputMessage;
+                totalMilliLitres9 = 0;
                 Serial.println("Beer 9 name saved using Preference");
                 preferences.end(); // stop preferences from accepting data
               }
@@ -566,6 +599,7 @@ void setupServer()
                 preferences.begin("beerNames", false); // tell preferences there is data coming
                 preferences.putString("beer10Name", inputMessage);
                 beer10Name = inputMessage;
+                totalMilliLitres1 = 10;
                 Serial.println("Beer 10 name saved using Preference");
                 preferences.end(); // stop preferences from accepting data
               }
@@ -574,8 +608,8 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_11)->value();
                 inputParam = PARAM_INPUT_11;
                 preferences.begin("beerVolumes", false); // tell preferences there is data coming
-                preferences.putInt("beer1Volume", inputMessage.toInt() * 1000);
-                beer1Volume = inputMessage.toInt() * 1000;
+                preferences.putFloat("beer1Volume", inputMessage.toInt() * 1000);
+                beer1Volume = inputMessage.toFloat() * 1000;
                 Serial.println("Beer 1 volume saved using Preference");
                 preferences.end(); // stop preferences from accepting data
               }
@@ -584,8 +618,8 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_12)->value();
                 inputParam = PARAM_INPUT_10;
                 preferences.begin("beerVolumes", false); // tell preferences there is data coming
-                preferences.putInt("beer2Volume", inputMessage.toInt() * 1000);
-                beer2Volume = inputMessage.toInt() * 1000;
+                preferences.putFloat("beer2Volume", inputMessage.toInt() * 1000);
+                beer2Volume = inputMessage.toFloat() * 1000;
                 Serial.println("Beer 2 volume saved using Preference");
                 preferences.end(); // stop preferences from accepting data
               }
@@ -594,8 +628,8 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_13)->value();
                 inputParam = PARAM_INPUT_13;
                 preferences.begin("beerVolumes", false); // tell preferences there is data coming
-                preferences.putInt("beer3Volume", inputMessage.toInt() * 1000);
-                beer3Volume = inputMessage.toInt() * 1000;
+                preferences.putFloat("beer3Volume", inputMessage.toInt() * 1000);
+                beer3Volume = inputMessage.toFloat() * 1000;
                 Serial.println("Beer 3 volume saved using Preference");
                 preferences.end(); // stop preferences from accepting data
               }
@@ -604,8 +638,8 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_14)->value();
                 inputParam = PARAM_INPUT_14;
                 preferences.begin("beerVolumes", false); // tell preferences there is data coming
-                preferences.putInt("beer4Volume", inputMessage.toInt() * 1000);
-                beer4Volume = inputMessage.toInt() * 1000;
+                preferences.putFloat("beer4Volume", inputMessage.toInt() * 1000);
+                beer4Volume = inputMessage.toFloat() * 1000;
                 Serial.println("Beer 4 volume saved using Preference");
                 preferences.end(); // stop preferences from accepting data
               }
@@ -614,8 +648,8 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_15)->value();
                 inputParam = PARAM_INPUT_15;
                 preferences.begin("beerVolumes", false); // tell preferences there is data coming
-                preferences.putInt("beer5Volume", inputMessage.toInt() * 1000);
-                beer5Volume = inputMessage.toInt() * 1000;
+                preferences.putFloat("beer5Volume", inputMessage.toInt() * 1000);
+                beer5Volume = inputMessage.toFloat() * 1000;
                 Serial.println("Beer 5 volume saved using Preference");
                 preferences.end(); // stop preferences from accepting data
               }
@@ -624,8 +658,8 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_16)->value();
                 inputParam = PARAM_INPUT_16;
                 preferences.begin("beerVolumes", false); // tell preferences there is data coming
-                preferences.putInt("beer6Volume", inputMessage.toInt() * 1000);
-                beer6Volume = inputMessage.toInt() * 1000;
+                preferences.putFloat("beer6Volume", inputMessage.toInt() * 1000);
+                beer6Volume = inputMessage.toFloat() * 1000;
                 Serial.println("Beer 6 volume saved using Preference");
                 preferences.end(); // stop preferences from accepting data
               }
@@ -634,8 +668,8 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_17)->value();
                 inputParam = PARAM_INPUT_17;
                 preferences.begin("beerVolumes", false); // tell preferences there is data coming
-                preferences.putInt("beer7Volume", inputMessage.toInt() * 1000);
-                beer7Volume = inputMessage.toInt() * 1000;
+                preferences.putFloat("beer7Volume", inputMessage.toInt() * 1000);
+                beer7Volume = inputMessage.toFloat() * 1000;
                 Serial.println("Beer 7 volume saved using Preference");
                 preferences.end(); // stop preferences from accepting data
               }
@@ -644,8 +678,8 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_18)->value();
                 inputParam = PARAM_INPUT_18;
                 preferences.begin("beerVolumes", false); // tell preferences there is data coming
-                preferences.putInt("beer8Volume", inputMessage.toInt() * 1000);
-                beer8Volume = inputMessage.toInt() * 1000;
+                preferences.putFloat("beer8Volume", inputMessage.toInt() * 1000);
+                beer8Volume = inputMessage.toFloat() * 1000;
                 Serial.println("Beer 8 volume saved using Preference");
                 preferences.end(); // stop preferences from accepting data
               }
@@ -654,8 +688,8 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_19)->value();
                 inputParam = PARAM_INPUT_19;
                 preferences.begin("beerVolumes", false); // tell preferences there is data coming
-                preferences.putInt("beer9Volume", inputMessage.toInt() * 1000);
-                beer9Volume = inputMessage.toInt() * 1000;
+                preferences.putFloat("beer9Volume", inputMessage.toInt() * 1000);
+                beer9Volume = inputMessage.toFloat() * 1000;
                 Serial.println("Beer 9 volume saved using Preference");
                 preferences.end(); // stop preferences from accepting data
               }
@@ -664,8 +698,8 @@ void setupServer()
                 inputMessage = request->getParam(PARAM_INPUT_20)->value();
                 inputParam = PARAM_INPUT_20;
                 preferences.begin("beerVolumes", false); // tell preferences there is data coming
-                preferences.putInt("beer10Volume", inputMessage.toInt() * 1000);
-                beer10Volume = inputMessage.toInt() * 1000;
+                preferences.putFloat("beer10Volume", inputMessage.toInt() * 1000);
+                beer10Volume = inputMessage.toFloat() * 1000;
                 Serial.println("Beer 10 volume saved using Preference");
                 preferences.end(); // stop preferences from accepting data
               }
@@ -693,6 +727,16 @@ void setupServer()
                 inputParam = PARAM_INPUT_23;
                 resetFunc();
               }
+              else if (request->hasParam(PARAM_INPUT_24)) // reset the board
+              {
+                inputMessage = request->getParam(PARAM_INPUT_24)->value();
+                inputParam = PARAM_INPUT_24;
+                calibrationFactor = calibrationFactor * inputMessage.toFloat();
+                preferences.begin("beerVolumes", false); // tell preferences there is data coming
+                preferences.putFloat("calibrationFactor", calibrationFactor);
+                Serial.println("Calibration factor saved using Preferences");
+                preferences.end(); // stop preferences from accepting data
+              }
               else
               {
                 inputMessage = "No message sent";
@@ -700,9 +744,31 @@ void setupServer()
               }
               Serial.print("Web form input: ");
               Serial.println(inputMessage);
+              //request->send(SPIFFS, "/settings.html");
               request->send(200, "text/html", "HTTP GET request sent to your ESP on input field (" + inputParam + ") with value: " + inputMessage + "<br><a href=\"/settings\">Return to Settings Page</a>");
             });
   server.onNotFound(notFound);
+}
+
+void blinkLED()
+{
+  if (stopLED != 1)
+  {
+    unsigned long currentMillisLED = millis();
+  if (currentMillisLED - previousMillisLED >= blinkInterval) {
+    // save the last time you blinked the LED
+    previousMillisLED = currentMillisLED;
+
+    // if the LED is off turn it on and vice-versa:
+    if (ledState == LOW) {
+      ledState = HIGH;
+    } else {
+      ledState = LOW;
+    }
+    // set the LED with the ledState of the variable:
+    digitalWrite(LED_BUILTIN, ledState);
+  }
+  }
 }
 
 void readFlows()
@@ -710,9 +776,6 @@ void readFlows()
   currentMillis1 = millis();
   if (currentMillis1 - previousMillis1 > interval)
   {
-    ledLoop++;
-    digitalWrite(LED_BUILTIN, HIGH); // turn the LED on (HIGH is the voltage level)
-
     pulseSec1 = pulseCount1;
     pulseCount1 = 0;
 
@@ -721,8 +784,16 @@ void readFlows()
     // that to scale the output. We also apply the calibrationFactor to scale the output
     // based on the number of pulses per second per units of measure (litres/minute in
     // this case) coming from the sensor.
+    Serial.println("");
+    Serial.println(previousMillis1);
     flowRate1 = ((1000.0 / (millis() - previousMillis1)) * pulseSec1) / calibrationFactor;
     previousMillis1 = millis();
+    Serial.println(flowRate1);
+    Serial.println(pulseSec1);
+    Serial.println(calibrationFactor);
+    Serial.println(previousMillis1);
+
+
 
     // Divide the flow rate in litres/minute by 60 to determine how many litres have
     // passed through the sensor in this 1 second interval, then multiply by 1000 to
@@ -743,13 +814,15 @@ void readFlows()
     //Serial.print(totalMilliLitres);
     //Serial.print("mL / ");
 
-    beer1Litres = beer1Volume - totalMilliLitres1; // need to divide  by 1000 on the receiving side
-    dtostrf(beer1Litres, 6, 2, beer1LitresChar);
-
+    beer1Volume = beer1Volume - flowMilliLitres1; // need to divide  by 1000 on the receiving side
+    Serial.print("Beer 1 beer1Volume: ");
+    Serial.println(beer1Volume);
+    Serial.print("Beer 1 flowMilliLitres1: ");
+    Serial.println(flowMilliLitres1);
     if (flowMilliLitres1 > 0)
     {
-      Serial.print("Beer 1 millilitres: ");
-      Serial.println(beer1LitresChar);
+      Serial.print("Beer 1 volume remaining: ");
+      Serial.println(beer1Volume);
     }
   }
 
@@ -785,7 +858,7 @@ void readFlows()
     //Serial.print("Output Liquid Quantity: ");
     //Serial.print(totalMilliLitres);
     //Serial.print("mL / ");
-    beer2Litres = beer2Volume - totalMilliLitres1; // need to divide  by 1000 on the receiving side
+    beer2Litres = beer2Volume - totalMilliLitres2; // need to divide  by 1000 on the receiving side
     dtostrf(beer2Litres, 6, 2, beer2LitresChar);
     if (flowMilliLitres2 > 0)
     {
@@ -1123,51 +1196,143 @@ void readFlows()
   }
 }
 
+void retrieveVolumes()
+{
+  preferences.begin("beerVolumes", false);
+  beer1Volume = preferences.getFloat("beer1Volume", 0);
+  tempBeer1Volume = beer1Volume;
+  beer2Volume = preferences.getFloat("beer2Volume", 0);
+  tempBeer2Volume = beer2Volume;
+  beer3Volume = preferences.getFloat("beer3Volume", 0);
+  tempBeer3Volume = beer3Volume;
+  beer4Volume = preferences.getFloat("beer4Volume", 0);
+  tempBeer4Volume = beer4Volume;
+  beer5Volume = preferences.getFloat("beer5Volume", 0);
+  tempBeer5Volume = beer5Volume;
+  beer6Volume = preferences.getFloat("beer6Volume", 0);
+  tempBeer6Volume = beer6Volume;
+  beer7Volume = preferences.getFloat("beer7Volume", 0);
+  tempBeer7Volume = beer7Volume;
+  beer8Volume = preferences.getFloat("beer8Volume", 0);
+  tempBeer8Volume = beer8Volume;
+  beer9Volume = preferences.getFloat("beer9Volume", 0);
+  tempBeer9Volume = beer9Volume;
+  beer10Volume = preferences.getFloat("beer10Volume", 0);
+  tempBeer10Volume = beer10Volume;
+  float tempcalibrationFactor = preferences.getFloat("calibrationFactor", 0);
+  Serial.print("Stored calibration factor: ");
+  Serial.println(tempcalibrationFactor);
+  if (tempcalibrationFactor != 0.00)
+  {
+    calibrationFactor = tempcalibrationFactor;
+  }
+  preferences.end(); // stop preferences from accepting data
+}
+
+void retrieveNames()
+{
+  preferences.begin("beerNames", false);
+  beer1Name = preferences.getString("beer1Volume", "");
+  beer2Name = preferences.getString("beer2Volume", "");
+  beer3Name = preferences.getString("beer3Volume", "");
+  beer4Name = preferences.getString("beer4Volume", "");
+  beer5Name = preferences.getString("beer5Volume", "");
+  beer6Name = preferences.getString("beer6Volume", "");
+  beer7Name = preferences.getString("beer7Volume", "");
+  beer8Name = preferences.getString("beer8Volume", "");
+  beer9Name = preferences.getString("beer9Volume", "");
+  beer10Name = preferences.getString("beer10Volume", "");
+  preferences.end(); // stop preferences from accepting data
+}
+
+void syncVolumes()
+{
+  Serial.println("Checking to see if beet volumes need syncing...");
+  if (tempBeer1Volume != beer1Volume) 
+  {
+    tempBeer1Volume = beer1Volume;
+    preferences.begin("beerVolumes", false); // tell preferences there is data coming
+    preferences.putFloat("beer1Volume", tempBeer1Volume);
+    Serial.println("Beer 1 volume synced due to change in volumes since last poll...");
+    preferences.end(); // stop preferences from accepting data
+  }
+  Serial.println("Beer volume sync complet!");
+}
+
 void setup()
 {
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, ledState); // signal error via SYS LED, forced on, no blink
   // Serial port for debugging purposes
   Serial.begin(115200);
   Serial.println("");
+  
+  timer.setInterval(300000L, syncVolumes); // Sync beer volumes every 5 minutes
 
   setupFlowData();
+  retrieveNames();
+  retrieveVolumes();
 
   // Initialize SPIFFS
   if (!SPIFFS.begin())
   {
-    Serial.println("An Error has occurred while mounting SPIFFS");
+    Serial.println("An Error has occurred while mounting SPIFFS (webserver is broken!)");
+    Serial.println("Please upload  anew SPIFFS image");
     return;
   }
 
   // Connect to Wi-Fi
+  Serial.println("Reading saved WiFi SSID and WiFi password");
   preferences.begin("credentials", false);
-
   pwifiSSID = preferences.getString("pwifiSSID", "");
   pwifiPassword = preferences.getString("pwifiPassword", "");
+  preferences.end(); // stop preferences from accepting data
 
   if (pwifiSSID == "" || pwifiPassword == "")
   {
-    Serial.println("No values saved for ssid or password");
-    WiFi.softAP("BeerTastic", "KegTastic");
+    
+    Serial.println("No values saved for WiFi SSID or WiFi password");
+    WiFi.softAP("KegTastic", "BeerTastic");
     Serial.println();
     Serial.print("IP address: ");
     Serial.println(WiFi.softAPIP());
     Serial.print("SSID: ");
-    Serial.println("BeerTastic");
-    Serial.print("Password: ");
     Serial.println("KegTastic");
+    Serial.print("Password: ");
+    Serial.println("BeerTastic");
+    blinkInterval = 100;
+    stopLED = 0;
   }
   else
   {
     // Connect to Wi-Fi
+    
     Serial.println("WiFi credentials stored in flash");
     WiFi.mode(WIFI_STA);
     WiFi.begin(pwifiSSID.c_str(), pwifiPassword.c_str());
     Serial.println("Connecting to WiFi ...");
     while (WiFi.status() != WL_CONNECTED)
     {
+      wifiDisconnected++;
       Serial.print('.');
       delay(1000);
+      if (wifiDisconnected > 30) // if no wifi during boot for more than 30 seconds
+      {
+        Serial.println("WiFi did not connect in time...");
+        Serial.println("Forcing WiFi setup routine");
+        Serial.println("Look for Beertastic AP and setup WiFi via http://192.168.4.1/settings");
+        Serial.println("Cheers!");
+        preferences.begin("credentials", false); // tell preferences there is data coming
+        preferences.putString("pwifiPassword", "");
+        preferences.putString("pwifiSSID", "");
+        Serial.println("WiFi SSID and pasword cleared!");
+        preferences.end(); // stop preferences from accepting data
+        Serial.println("Rebooting...");
+        resetFunc();
+      }
     }
+    blinkInterval = 1000;
+    stopLED = 0;
     Serial.println(WiFi.localIP());
   }
 
@@ -1183,13 +1348,10 @@ void setup()
 
 void loop()
 {
+  timer.run();
+  blinkLED();
   readFlows();
-
-  if (ledLoop == 2)
-  {
-    AsyncElegantOTA.loop();
-    ws.cleanupClients();
-    digitalWrite(LED_BUILTIN, LOW);
-    ledLoop = 0;
-  }
+  syncVolumes;
+  AsyncElegantOTA.loop();
+  ws.cleanupClients();
 }
