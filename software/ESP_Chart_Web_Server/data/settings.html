@@ -43,26 +43,27 @@
     </div>
     <div>
       <span>How many beers to display data for. Should match the amount of beer taps/flow sensors you have</span>
-      <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        Number of beers: <input type="text" name="numberofbeers" id="data">
+      <form action="" id="form" onsubmit="HttpGetAsync(this);">
+        Number of beers: <input type="text" name="numberofbeers" id="numberofbeers">
         <button type="submit">Submit</button>
       </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
-            //console.log(data.value);
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
+      <script>
+        function HttpGetAsync(elmnt) {
+          event.preventDefault();
+          var data = document.getElementById("numberofbeers");
+          console.log(data.value);
+          var xmlHttp = new XMLHttpRequest();
+          xmlHttp.onreadystatechange = function () {
             if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
-                elmnt.style.color = 'green';
+            {
+            console.log(xmlHttp.responseText);
+            elmnt.style.color = 'green';
             }
-            xmlHttp.open("GET", "/get?numberofbeers=" + data.value, true); // true for asynchronous 
-            xmlHttp.send(null);
           }
-        </script>
+          xmlHttp.open("GET", "/get?numberofbeers=" + data.value, true); // true for asynchronous 
+          xmlHttp.send(null);
+        }
+      </script>
       <span>Use the following input to modify the flow value or litres per minute.<br>
         To calibrate: pour a known quantity of beer, then<br>
         if the web data reads lower than expected:<br>
@@ -75,470 +76,450 @@
         &nbsp;for example, the web page displayed 600ml (.6L) of beer was pured and you measured 500ml (.5L)<br>
         &nbsp;then the math would be: 1/(.6/.5) = 0.833<br>
         &nbsp;enter 0.833 into the form below and hit submit</span>
-        <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-          Flow multiplier: <input type="text" name="flowMultiplier" id="data">
-          <button type="submit">Submit</button>
-        </form><br>
-          <script>
-            function httpGetAsync(elmnt, event)
-            {
-              event.preventDefault();
-              var data = document.getElementById("data");
+      <form action="" id="form" onsubmit="flowmultiplierHttpGetAsync(this);">
+        Flow multiplier: <input type="text" name="flowmultiplier" id="flowmultiplier">
+        <button type="submit">Submit</button>
+      </form><br>
+      <script>
+        function flowmultiplierHttpGetAsync(elmnt) {
+          event.preventDefault();
+          var data = document.getElementById("flowmultiplier");
+          //console.log(data.value);
+          var xmlHttp = new XMLHttpRequest();
+          xmlHttp.onreadystatechange = function () {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+              console.log(xmlHttp.responseText);
+            elmnt.style.color = 'green';
+          }
+          xmlHttp.open("GET", "/get?flowmultiplier=" + data.value, true); // true for asynchronous 
+          xmlHttp.send(null);
+        }
+      </script><br><br>
+      <span>Set the display name for Beer1...</span>
+      <form action="" id="form" onsubmit="beer1nameHttpGetAsync(this);">
+        Beer 01 name: <input type="text" name="beer1name" id="beer1name">
+        <button type="submit">Submit</button>
+      </form><br>
+      <script>
+            function beer1nameHttpGetAsync(elmnt) {
+  
+              var data = document.getElementById("beer1name");
               //console.log(data.value);
               var xmlHttp = new XMLHttpRequest();
-              xmlHttp.onreadystatechange = function() { 
-              if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+              xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
                   console.log(xmlHttp.responseText);
-                  elmnt.style.color = 'green';
+                elmnt.style.color = 'green';
               }
-              xmlHttp.open("GET", "/get?flowMultiplier=" + data.value, true); // true for asynchronous 
+              xmlHttp.open("GET", "/get?beer1name=" + data.value, true); // true for asynchronous 
               xmlHttp.send(null);
             }
-          </script><br><br>
-      <span>Set the display name for Beer1...</span>
-      <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        Beer 01 name: <input type="text" name="beer1name" id="data">
-        <button type="submit">Submit</button>
-      </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
-            //console.log(data.value);
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
-                elmnt.style.color = 'green';
-            }
-            xmlHttp.open("GET", "/get?beer1Name=" + data.value, true); // true for asynchronous 
-            xmlHttp.send(null);
-          }
-        </script>
+      </script>
       <span>Set the volume of beer in the keg for Beer1...</span>
-      <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        Beer 01 volume: <input type="text" name="beer1Volume" id="data">
+      <form action="" id="form" onsubmit="beer1volumeHttpGetAsync(this);">
+        Beer 01 volume: <input type="text" name="beer1volume" id="beer1volume">
         <button type="submit">Submit</button>
       </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
-            //console.log(data.value);
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
+      <script>
+            function beer1volumeHttpGetAsync(elmnt) {
+  
+              var data = document.getElementById("beer1volume");
+              //console.log(data.value);
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                  console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
+              }
+              xmlHttp.open("GET", "/get?beer1volume=" + data.value, true); // true for asynchronous 
+              xmlHttp.send(null);
             }
-            xmlHttp.open("GET", "/get?beer1Volume=" + data.value, true); // true for asynchronous 
-            xmlHttp.send(null);
-          }
-        </script>
-      <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        Beer 02 name: <input type="text" name="beer2Name" id="data">
+      </script>
+      <form action="" id="form" onsubmit="beer2nameHttpGetAsync(this);">
+        Beer 02 name: <input type="text" name="beer2name" id="beer2name">
         <button type="submit">Submit</button>
       </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
-            //console.log(data.value);
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
+      <script>
+            function beer2nameHttpGetAsync(elmnt) {
+  
+              var data = document.getElementById("beer2name");
+              //console.log(data.value);
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                  console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
+              }
+              xmlHttp.open("GET", "/get?beer2name=" + data.value, true); // true for asynchronous 
+              xmlHttp.send(null);
             }
-            xmlHttp.open("GET", "/get?beer2Name=" + data.value, true); // true for asynchronous 
-            xmlHttp.send(null);
-          }
-        </script>
-      <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        Beer 02 volume: <input type="text" name="beer2Volume" id="data">
+      </script>
+      <form action="" id="form" onsubmit="beer2volumeHttpGetAsync(this);">
+        Beer 02 volume: <input type="text" name="beer2volume" id="beer2volume">
         <button type="submit">Submit</button>
       </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
-            //console.log(data.value);
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
+      <script>
+            function beer2volumeHttpGetAsync(elmnt) {
+  
+              var data = document.getElementById("beer2volume");
+              //console.log(data.value);
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                  console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
+              }
+              xmlHttp.open("GET", "/get?beer2volume=" + data.value, true); // true for asynchronous 
+              xmlHttp.send(null);
             }
-            xmlHttp.open("GET", "/get?beer2Volume=" + data.value, true); // true for asynchronous 
-            xmlHttp.send(null);
-          }
-        </script>
-      <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        Beer 03 name: <input type="text" name="beer3name" id="data">
+      </script>
+      <form action="" id="form" onsubmit="beer3nameHttpGetAsync(this);">
+        Beer 03 name: <input type="text" name="beer3name" id="beer3name">
         <button type="submit">Submit</button>
       </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
-            //console.log(data.value);
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
+      <script>
+            function beer3nameHttpGetAsync(elmnt) {
+  
+              var data = document.getElementById("beer3name");
+              //console.log(data.value);
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                  console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
+              }
+              xmlHttp.open("GET", "/get?beer3name=" + data.value, true); // true for asynchronous 
+              xmlHttp.send(null);
             }
-            xmlHttp.open("GET", "/get?beer3Name=" + data.value, true); // true for asynchronous 
-            xmlHttp.send(null);
-          }
-        </script>
-      <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        Beer 03 volume: <input type="text" name="beer3Volume" id="data">
+      </script>
+      <form action="" id="form" onsubmit="beer3volumeHttpGetAsync(this);">
+        Beer 03 volume: <input type="text" name="beer3volume" id="beer3volume">
         <button type="submit">Submit</button>
       </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
-            //console.log(data.value);
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
+      <script>
+            function beer3volumeHttpGetAsync(elmnt) {
+  
+              var data = document.getElementById("beer3volume");
+              //console.log(data.value);
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                  console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
+              }
+              xmlHttp.open("GET", "/get?beer3volume=" + data.value, true); // true for asynchronous 
+              xmlHttp.send(null);
             }
-            xmlHttp.open("GET", "/get?beer3Volume=" + data.value, true); // true for asynchronous 
-            xmlHttp.send(null);
-          }
-        </script>
-      <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        Beer 04 name: <input type="text" name="beer4Name" id="data">
+      </script>
+      <form action="" id="form" onsubmit="beer4nameHttpGetAsync(this);">
+        Beer 04 name: <input type="text" name="beer4name" id="beer4name">
         <button type="submit">Submit</button>
       </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
-            //console.log(data.value);
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
+      <script>
+            function beer4nameHttpGetAsync(elmnt) {
+  
+              var data = document.getElementById("beer4name");
+              //console.log(data.value);
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                  console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
+              }
+              xmlHttp.open("GET", "/get?beer4name=" + data.value, true); // true for asynchronous 
+              xmlHttp.send(null);
             }
-            xmlHttp.open("GET", "/get?beer4Name=" + data.value, true); // true for asynchronous 
-            xmlHttp.send(null);
-          }
-        </script>
-      <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        Beer 04 volume: <input type="text" name="beer4Volume" id="data">
+      </script>
+      <form action="" id="form" onsubmit="beer4volumeHttpGetAsync(this);">
+        Beer 04 volume: <input type="text" name="beer4volume" id="beer4volume">
         <button type="submit">Submit</button>
       </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
-            //console.log(data.value);
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
+      <script>
+            function beer4volumeHttpGetAsync(elmnt) {
+  
+              var data = document.getElementById("beer4volume");
+              //console.log(data.value);
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                  console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
+              }
+              xmlHttp.open("GET", "/get?beer4volume=" + data.value, true); // true for asynchronous 
+              xmlHttp.send(null);
             }
-            xmlHttp.open("GET", "/get?beer4Volume=" + data.value, true); // true for asynchronous 
-            xmlHttp.send(null);
-          }
-        </script>
-      <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        Beer 05 name: <input type="text" name="beer5Name" id="data">
+      </script>
+      <form action="" id="form" onsubmit="beer5nameHttpGetAsync(this);">
+        Beer 05 name: <input type="text" name="beer5name" id="beer5name">
         <button type="submit">Submit</button>
       </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
-            //console.log(data.value);
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
+      <script>
+            function beer5nameHttpGetAsync(elmnt) {
+  
+              var data = document.getElementById("beer5name");
+              //console.log(data.value);
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                  console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
+              }
+              xmlHttp.open("GET", "/get?beer5name=" + data.value, true); // true for asynchronous 
+              xmlHttp.send(null);
             }
-            xmlHttp.open("GET", "/get?beer5Name=" + data.value, true); // true for asynchronous 
-            xmlHttp.send(null);
-          }
-        </script>
-      <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        Beer 05 volume: <input type="text" name="beer5Volume" id="data">
+      </script>
+      <form action="" id="form" onsubmit="beer5volumeHttpGetAsync(this);">
+        Beer 05 volume: <input type="text" name="beer5volume" id="beer5volume">
         <button type="submit">Submit</button>
       </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
-            //console.log(data.value);
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
+      <script>
+            function beer5volumeHttpGetAsync(elmnt) {
+  
+              var data = document.getElementById("beer5volume");
+              //console.log(data.value);
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                  console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
+              }
+              xmlHttp.open("GET", "/get?beer5volume=" + data.value, true); // true for asynchronous 
+              xmlHttp.send(null);
             }
-            xmlHttp.open("GET", "/get?beer5Volume=" + data.value, true); // true for asynchronous 
-            xmlHttp.send(null);
-          }
-        </script>
-      <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        Beer 06 name: <input type="text" name="beer6Name" id="data">
+      </script>
+      <form action="" id="form" onsubmit="beer6nameHttpGetAsync(this);">
+        Beer 06 name: <input type="text" name="beer6name" id="beer6name">
         <button type="submit">Submit</button>
       </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
-            //console.log(data.value);
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
+      <script>
+            function beer6nameHttpGetAsync(elmnt) {
+  
+              var data = document.getElementById("beer6name");
+              //console.log(data.value);
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                  console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
+              }
+              xmlHttp.open("GET", "/get?beer6name=" + data.value, true); // true for asynchronous 
+              xmlHttp.send(null);
             }
-            xmlHttp.open("GET", "/get?beer6Name=" + data.value, true); // true for asynchronous 
-            xmlHttp.send(null);
-          }
-        </script>
-      <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        Beer 06 volume: <input type="text" name="beer6Volume" id="data">
+      </script>
+      <form action="" id="form" onsubmit="beer6volumeHttpGetAsync(this);">
+        Beer 06 volume: <input type="text" name="beer6volume" id="beer6volume">
         <button type="submit">Submit</button>
       </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
-            //console.log(data.value);
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
+      <script>
+            function beer6volumeHttpGetAsync(elmnt) {
+  
+              var data = document.getElementById("beer6volume");
+              //console.log(data.value);
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                  console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
+              }
+              xmlHttp.open("GET", "/get?beer6volume=" + data.value, true); // true for asynchronous 
+              xmlHttp.send(null);
             }
-            xmlHttp.open("GET", "/get?beer6Volume=" + data.value, true); // true for asynchronous 
-            xmlHttp.send(null);
-          }
-        </script>
-      <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        Beer 07 name: <input type="text" name="beer7Name" id="data">
+      </script>
+      <form action="" id="form" onsubmit="beer7nameHttpGetAsync(this);">
+        Beer 07 name: <input type="text" name="beer7name" id="beer7name">
         <button type="submit">Submit</button>
       </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
-            //console.log(data.value);
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
+      <script>
+            function beer7nameHttpGetAsync(elmnt) {
+  
+              var data = document.getElementById("beer7name");
+              //console.log(data.value);
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                  console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
+              }
+              xmlHttp.open("GET", "/get?beer7name=" + data.value, true); // true for asynchronous 
+              xmlHttp.send(null);
             }
-            xmlHttp.open("GET", "/get?beer7Name=" + data.value, true); // true for asynchronous 
-            xmlHttp.send(null);
-          }
-        </script>
-      <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        Beer 07 volume: <input type="text" name="beer7Volume" id="data">
+      </script>
+      <form action="" id="form" onsubmit="beer7volumeHttpGetAsync(this);">
+        Beer 07 volume: <input type="text" name="beer7volume" id="beer7volume">
         <button type="submit">Submit</button>
       </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
-            //console.log(data.value);
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
+      <script>
+            function beer7volumeHttpGetAsync(elmnt) {
+  
+              var data = document.getElementById("beer7volume");
+              //console.log(data.value);
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                  console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
+              }
+              xmlHttp.open("GET", "/get?beer7volume=" + data.value, true); // true for asynchronous 
+              xmlHttp.send(null);
             }
-            xmlHttp.open("GET", "/get?beer7Volume=" + data.value, true); // true for asynchronous 
-            xmlHttp.send(null);
-          }
-        </script>
-      <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        Beer 08 name: <input type="text" name="beer8Name" id="data">
+      </script>
+      <form action="" id="form" onsubmit="beer8nameHttpGetAsync(this);">
+        Beer 08 name: <input type="text" name="beer8name" id="beer8name">
         <button type="submit">Submit</button>
       </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
-            //console.log(data.value);
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
+      <script>
+            function beer8nameHttpGetAsync(elmnt) {
+  
+              var data = document.getElementById("beer8name");
+              //console.log(data.value);
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                  console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
+              }
+              xmlHttp.open("GET", "/get?beer8name=" + data.value, true); // true for asynchronous 
+              xmlHttp.send(null);
             }
-            xmlHttp.open("GET", "/get?beer8Name=" + data.value, true); // true for asynchronous 
-            xmlHttp.send(null);
-          }
-        </script>
-      <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        Beer 08 volume: <input type="text" name="beer8Volume" id="data">
+      </script>
+      <form action="" id="form" onsubmit="beer8volumeHttpGetAsync(this);">
+        Beer 08 volume: <input type="text" name="beer8volume" id="beer8volume">
         <button type="submit">Submit</button>
       </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
-            //console.log(data.value);
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
+      <script>
+            function beer8volumeHttpGetAsync(elmnt) {
+  
+              var data = document.getElementById("beer8volume");
+              //console.log(data.value);
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                  console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
+              }
+              xmlHttp.open("GET", "/get?beer8volume=" + data.value, true); // true for asynchronous 
+              xmlHttp.send(null);
             }
-            xmlHttp.open("GET", "/get?beer8Volume=" + data.value, true); // true for asynchronous 
-            xmlHttp.send(null);
-          }
-        </script>
-      <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        Beer 09 name: <input type="text" name="beer9name" id="data">
+      </script>
+      <form action="" id="form" onsubmit="beer9nameHttpGetAsync(this);">
+        Beer 09 name: <input type="text" name="beer9name" id="beer9name">
         <button type="submit">Submit</button>
       </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
-            //console.log(data.value);
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
+      <script>
+            function beer9nameHttpGetAsync(elmnt) {
+  
+              var data = document.getElementById("beer9name");
+              //console.log(data.value);
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                  console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
+              }
+              xmlHttp.open("GET", "/get?beer9name=" + data.value, true); // true for asynchronous 
+              xmlHttp.send(null);
             }
-            xmlHttp.open("GET", "/get?beer9Name=" + data.value, true); // true for asynchronous 
-            xmlHttp.send(null);
-          }
-        </script>
-      <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        Beer 09 volume: <input type="text" name="beer9Volume" id="data">
+      </script>
+      <form action="" id="form" onsubmit="beer9volumeHttpGetAsync(this);">
+        Beer 09 volume: <input type="text" name="beer9volume" id="beer9volume">
         <button type="submit">Submit</button>
       </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
-            //console.log(data.value);
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
+      <script>
+            function beer9volumeHttpGetAsync(elmnt) {
+  
+              var data = document.getElementById("beer9volume");
+              //console.log(data.value);
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                  console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
+              }
+              xmlHttp.open("GET", "/get?beer9volume=" + data.value, true); // true for asynchronous 
+              xmlHttp.send(null);
             }
-            xmlHttp.open("GET", "/get?beer9Volume=" + data.value, true); // true for asynchronous 
-            xmlHttp.send(null);
-          }
-        </script>
-      <<form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        Beer 10 name: <input type="text" name="beer10Name" id="data">
+      </script>
+      <form action="" id="form" onsubmit="beer10nameHttpGetAsync(this);">
+        Beer 10 name: <input type="text" name="beer10name" id="beer10name">
         <button type="submit">Submit</button>
       </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
-            //console.log(data.value);
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
+      <script>
+            function beer10nameHttpGetAsync(elmnt) {
+  
+              var data = document.getElementById("beer10name");
+              //console.log(data.value);
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                  console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
+              }
+              xmlHttp.open("GET", "/get?beer10name=" + data.value, true); // true for asynchronous 
+              xmlHttp.send(null);
             }
-            xmlHttp.open("GET", "/get?beer10Name=" + data.value, true); // true for asynchronous 
-            xmlHttp.send(null);
-          }
-        </script>
-      <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        Beer 10 volume: <input type="text" name="beer10Volume" id="data">
+      </script>
+      <form action="" id="form" onsubmit="beer10volumeHttpGetAsync(this);">
+        Beer 10 volume: <input type="text" name="beer10volume" id="beer10volume">
         <button type="submit">Submit</button>
       </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
-            //console.log(data.value);
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
+      <script>
+            function beer10volumeHttpGetAsync(elmnt) {
+  
+              var data = document.getElementById("beer10volume");
+              //console.log(data.value);
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                  console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
+              }
+              xmlHttp.open("GET", "/get?beer10volume=" + data.value, true); // true for asynchronous 
+              xmlHttp.send(null);
             }
-            xmlHttp.open("GET", "/get?beer10Volume=" + data.value, true); // true for asynchronous 
-            xmlHttp.send(null);
-          }
-        </script>
+      </script>
       <span>Set the name of the WiFi network you want to connect KegTastic to...</span>
-      <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        WiFi SSID: <input type="text" name="wifiSSID" id="data">
+      <form action="" id="form" onsubmit="wifissidHttpGetAsync(this);">
+        WiFi SSID: <input type="text" name="wifissid" id="wifissid">
         <button type="submit">Submit</button>
       </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
-            //console.log(data.value);
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
+      <script>
+            function wifissidHttpGetAsync(elmnt) {
+  
+              var data = document.getElementById("wifissid");
+              //console.log(data.value);
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                  console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
+              }
+              xmlHttp.open("GET", "/get?wifissid=" + data.value, true); // true for asynchronous 
+              xmlHttp.send(null);
             }
-            xmlHttp.open("GET", "/get?wifiSSID=" + data.value, true); // true for asynchronous 
-            xmlHttp.send(null);
-          }
-        </script>
+      </script>
       <span>Set the password for the WiFi network you want to connect Kegtastic to...</span>
-      <form action="" id="form" onsubmit="httpGetAsync(this, event);">
-        WiFi password: <input type="text" name="wifiPassword" id="data">
+      <form action="" id="form" onsubmit="wifipasswordHttpGetAsync(this);">
+        WiFi password: <input type="text" name="wifipassword" id="wifipassword">
         <button type="submit">Submit</button>
       </form><br>
-        <script>
-          function httpGetAsync(elmnt, event)
-          {
-            event.preventDefault();
-            var data = document.getElementById("data");
+      <script>
+          function wifipasswordHttpGetAsync(elmnt) {
+
+            var data = document.getElementById("wifipassword");
             //console.log(data.value);
             var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                console.log(xmlHttp.responseText);
-                elmnt.style.color = 'green';
+            xmlHttp.onreadystatechange = function () {
+              if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+              {
+              console.log(xmlHttp.responseText);
+              elmnt.style.color = 'green';
+              }
+                
             }
-            xmlHttp.open("GET", "/get?wifiPassword=" + data.value, true); // true for asynchronous 
+            xmlHttp.open("GET", "/get?wifipassword=" + data.value, true); // true for asynchronous 
             xmlHttp.send(null);
           }
-        </script>
+      </script>
       <span>To connect to the new WiFi network you'll need to click the Reboot button</span>
     </div>
   </div>
