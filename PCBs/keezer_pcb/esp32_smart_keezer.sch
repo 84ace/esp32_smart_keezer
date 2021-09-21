@@ -5,8 +5,8 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "ESP32 Smart Keezer"
-Date "2021-08-28"
-Rev "1"
+Date "2021-09-22"
+Rev "2"
 Comp "Acea Quigg"
 Comment1 ""
 Comment2 ""
@@ -1227,17 +1227,15 @@ $EndComp
 $Comp
 L Device:L_Small L1
 U 1 1 6132B509
-P 2575 1669
-F 0 "L1" V 2775 1669 50  0000 C CNN
-F 1 "47uH" V 2675 1669 50  0000 C CNN
-F 2 "Inductor_SMD:L_Bourns_SRN6045TA" H 2575 1669 50  0001 C CNN
-F 3 "~" H 2575 1669 50  0001 C CNN
-F 4 "C36414" H 2575 1669 50  0001 C CNN "lcsc_part_number"
-	1    2575 1669
+P 2544 1769
+F 0 "L1" V 2488 1765 50  0000 C CNN
+F 1 "47uH" V 2398 1772 50  0000 C CNN
+F 2 "Inductor_SMD:L_Bourns_SRN6045TA" H 2544 1769 50  0001 C CNN
+F 3 "~" H 2544 1769 50  0001 C CNN
+F 4 "C36414" H 2544 1769 50  0001 C CNN "lcsc_part_number"
+	1    2544 1769
 	0    -1   -1   0   
 $EndComp
-Wire Wire Line
-	2675 1669 2975 1669
 Wire Wire Line
 	2975 1669 2975 1769
 Connection ~ 2975 1769
@@ -1278,10 +1276,6 @@ F 3 "" H 3175 1769 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Connection ~ 3175 1769
-Wire Wire Line
-	2325 1769 2975 1769
-Wire Wire Line
-	2475 1669 2325 1669
 Wire Wire Line
 	2325 1569 2402 1569
 Wire Wire Line
@@ -1329,4 +1323,10 @@ Wire Wire Line
 	2625 2223 2625 2319
 Text GLabel 10438 1680 2    50   Input ~ 0
 RST
+Wire Wire Line
+	2325 1769 2444 1769
+Wire Wire Line
+	2644 1769 2975 1769
+Wire Wire Line
+	2325 1669 2975 1669
 $EndSCHEMATC
