@@ -18,7 +18,7 @@
 
 <body>
   <div style="padding: 20px;">
-    <div style="position:absolute;top:0;right:0;">
+    <div style="position:absolute;top:4;right:4;">
       <a href="/"><button>Beer Overview</button></a>
       <a href="/settings"><button>Settings</button></a>
     </div>
@@ -55,7 +55,7 @@
         animation: false,
         dataLabels: { enabled: false }
       },
-      series: { color: '#059e8a' }
+      series: { color: '#7CB5EC' }
     },
     xAxis: {
       type: 'datetime',
@@ -83,7 +83,6 @@
     xhttp1v.send();
     var xhttp1n = new XMLHttpRequest();
     //var jsonResponse = JSON.parse(xhttp1n.responseText);
-    console.log("Response: ", xhttp1n.responseText)
     xhttp1n.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         chart1.setTitle({text: this.responseText});
@@ -120,7 +119,8 @@
       line: {
         animation: false,
         dataLabels: { enabled: false }
-      }
+      },
+      series: { color: '#434348' }
     },
     xAxis: {
       type: 'datetime',
@@ -146,12 +146,11 @@
     };
     xhttp2v.open("GET", "/beer2volume", true);
     xhttp2v.send();
-    var xhttp1nn = new XMLHttpRequest();
+    var xhttp2n = new XMLHttpRequest();
     //var jsonResponse = JSON.parse(xhttp1nn.responseText);
-    console.log("Response: ", xhtt2nn.responseText)
     xhttp2n.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        chart1.setTitle({text: this.responseText});
+        chart2.setTitle({text: this.responseText});
       }
     };
     xhttp2n.open("GET", "/beer2name", true);
@@ -186,7 +185,7 @@
         animation: false,
         dataLabels: { enabled: false }
       },
-      series: { color: '#18009c' }
+      series: { color: '#90ED7D' }
     },
     xAxis: {
       type: 'datetime',
@@ -211,13 +210,12 @@
       }
     };
     xhttp3v.open("GET", "/beer3volume", true);
-    xhttp3v.send();
+    xhttp3v.send()
     var xhttp3n = new XMLHttpRequest();
     //var jsonResponse = JSON.parse(xhttp3n.responseText);
-    console.log("Response: ", xhttp3n.responseText)
     xhttp3n.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        chart1.setTitle({text: this.responseText});
+        chart3.setTitle({text: this.responseText});
       }
     };
     xhttp3n.open("GET", "/beer3name", true);
@@ -252,7 +250,7 @@
         animation: false,
         dataLabels: { enabled: false }
       },
-      series: { color: '#18009c' }
+      series: { color: '#F7A35C' }
     },
     xAxis: {
       type: 'datetime',
@@ -263,8 +261,8 @@
     },
     credits: { enabled: false }
   });
-  var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
+  var xhttp4v = new XMLHttpRequest();
+    xhttp4v.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         var x = (new Date()).getTime(),
         yRaw = parseFloat(this.responseText)
@@ -276,21 +274,20 @@
         }
       }
     };
-    xhttp.open("GET", "/beer4volume", true);
-    xhttp.send();
-    var xhttp3nt = new XMLHttpRequest();
-    //var jsonResponse = JSON.parse(xhttp3nt.responseText);
-    console.log("Response: ", xhttp3nt.responseText)
-    xhttp3nt.onreadystatechange = function () {
+    xhttp4v.open("GET", "/beer4volume", true);
+    xhttp4v.send();
+    var xhttp4n = new XMLHttpRequest();
+    //var jsonResponse = JSON.parse(xhttp4n.responseText);
+    xhttp4n.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        chart1.setTitle({text: this.responseText});
+        chart4.setTitle({text: this.responseText});
       }
     };
-    xhttp3nt.open("GET", "/beer4name", true);
-    xhttp3nt.send();
+    xhttp4n.open("GET", "/beer4name", true);
+    xhttp4n.send();
   setInterval(function () {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
+    var xhttp4vt = new XMLHttpRequest();
+    xhttp4vt.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         var x = (new Date()).getTime(),
         yRaw = parseFloat(this.responseText)
@@ -302,8 +299,8 @@
         }
       }
     };
-    xhttp.open("GET", "/beer4volume", true);
-    xhttp.send();
+    xhttp4vt.open("GET", "/beer4volume", true);
+    xhttp4vt.send();
   }, 10000);
 
   var chart5 = new Highcharts.Chart({
@@ -318,7 +315,7 @@
         animation: false,
         dataLabels: { enabled: false }
       },
-      series: { color: '#18009c' }
+      series: { color: '#8085E9' }
     },
     xAxis: {
       type: 'datetime',
@@ -329,8 +326,8 @@
     },
     credits: { enabled: false }
   });
-  var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
+  var xhttp5v = new XMLHttpRequest();
+  xhttp5v.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         var x = (new Date()).getTime(),
         yRaw = parseFloat(this.responseText)
@@ -342,21 +339,20 @@
         }
       }
     };
-    xhttp.open("GET", "/beer5volume", true);
-    xhttp.send();
-    var xhttpn = new XMLHttpRequest();
-    //var jsonResponse = JSON.parse(xhttpn.responseText);
-    console.log("Response: ", xhttpn.responseText)
-    xhttpn.onreadystatechange = function () {
+    xhttp5v.open("GET", "/beer5volume", true);
+    xhttp5v.send();
+    var xhttp5n = new XMLHttpRequest();
+    //var jsonResponse = JSON.parse(xhttp5n.responseText);
+    xhttp5n.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        chart1.setTitle({text: this.responseText});
+        chart5.setTitle({text: this.responseText});
       }
     };
-    xhttpn.open("GET", "/beer5name", true);
-    xhttpn.send();
+    xhttp5n.open("GET", "/beer5name", true);
+    xhttp5n.send();
   setInterval(function () {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
+    var xhttp5vt = new XMLHttpRequest();
+    xhttp5vt.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         var x = (new Date()).getTime(),
         yRaw = parseFloat(this.responseText)
@@ -368,8 +364,8 @@
         }
       }
     };
-    xhttp.open("GET", "/beer5volume", true);
-    xhttp.send();
+    xhttp5vt.open("GET", "/beer5volume", true);
+    xhttp5vt.send();
   }, 10000);
 
   var chart6 = new Highcharts.Chart({
@@ -384,7 +380,7 @@
         animation: false,
         dataLabels: { enabled: false }
       },
-      series: { color: '#18009c' }
+      series: { color: '#F15C80' }
     },
     xAxis: {
       type: 'datetime',
@@ -395,8 +391,8 @@
     },
     credits: { enabled: false }
   });
-  var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
+  var xhttp6v = new XMLHttpRequest();
+  xhttp6v.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         var x = (new Date()).getTime(),
         yRaw = parseFloat(this.responseText)
@@ -408,21 +404,20 @@
         }
       }
     };
-    xhttp.open("GET", "/beer6volume", true);
-    xhttp.send();
-    var xhttpn = new XMLHttpRequest();
-    //var jsonResponse = JSON.parse(xhttpn.responseText);
-    console.log("Response: ", xhttpn.responseText)
-    xhttpn.onreadystatechange = function () {
+    xhttp6v.open("GET", "/beer6volume", true);
+    xhttp6v.send();
+    var xhttp6n = new XMLHttpRequest();
+    //var jsonResponse = JSON.parse(xhttp6v.responseText);
+    xhttp6n.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        chart1.setTitle({text: this.responseText});
+        chart6.setTitle({text: this.responseText});
       }
     };
-    xhttpn.open("GET", "/beer6name", true);
-    xhttpn.send();
+    xhttp6n.open("GET", "/beer6name", true);
+    xhttp6n.send();
   setInterval(function () {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
+    var xhttp6v = new XMLHttpRequest();
+    xhttp6v.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         var x = (new Date()).getTime(),
         yRaw = parseFloat(this.responseText)
@@ -434,8 +429,8 @@
         }
       }
     };
-    xhttp.open("GET", "/beer6volume", true);
-    xhttp.send();
+    xhttp6v.open("GET", "/beer6volume", true);
+    xhttp6v.send();
   }, 10000);
 
   var chart7 = new Highcharts.Chart({
@@ -450,7 +445,7 @@
         animation: false,
         dataLabels: { enabled: false }
       },
-      series: { color: '#18009c' }
+      series: { color: '#E4D354' }
     },
     xAxis: {
       type: 'datetime',
@@ -461,8 +456,8 @@
     },
     credits: { enabled: false }
   });
-  var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
+  var xhttp7v = new XMLHttpRequest();
+  xhttp7v.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         var x = (new Date()).getTime(),
         yRaw = parseFloat(this.responseText)
@@ -474,21 +469,20 @@
         }
       }
     };
-    xhttp.open("GET", "/beer7volume", true);
-    xhttp.send();
-    var xhttpn = new XMLHttpRequest();
-    //var jsonResponse = JSON.parse(xhttpn.responseText);
-    console.log("Response: ", xhttpn.responseText)
-    xhttpn.onreadystatechange = function () {
+    xhttp7v.open("GET", "/beer7volume", true);
+    xhttp7v.send();
+    var xhttp7n = new XMLHttpRequest();
+    //var jsonResponse = JSON.parse(xhttp7n.responseText);
+    xhttp7n.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        chart1.setTitle({text: this.responseText});
+        chart7.setTitle({text: this.responseText});
       }
     };
-    xhttpn.open("GET", "/beer7name", true);
-    xhttpn.send();
+    xhttp7n.open("GET", "/beer7name", true);
+    xhttp7n.send();
   setInterval(function () {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
+    var xhttp7vt = new XMLHttpRequest();
+    xhttp7vt.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         var x = (new Date()).getTime(),
         yRaw = parseFloat(this.responseText)
@@ -500,8 +494,8 @@
         }
       }
     };
-    xhttp.open("GET", "/beer7volume", true);
-    xhttp.send();
+    xhttp7vt.open("GET", "/beer7volume", true);
+    xhttp7vt.send();
   }, 10000);
 
   var chart8 = new Highcharts.Chart({
@@ -516,7 +510,7 @@
         animation: false,
         dataLabels: { enabled: false }
       },
-      series: { color: '#18009c' }
+      series: { color: '#2B908F' }
     },
     xAxis: {
       type: 'datetime',
@@ -527,8 +521,8 @@
     },
     credits: { enabled: false }
   });
-  var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
+  var xhttp8v = new XMLHttpRequest();
+  xhttp8v.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         var x = (new Date()).getTime(),
         yRaw = parseFloat(this.responseText)
@@ -540,21 +534,20 @@
         }
       }
     };
-    xhttp.open("GET", "/beer8volume", true);
-    xhttp.send();
-    var xhttpn = new XMLHttpRequest();
-    //var jsonResponse = JSON.parse(xhttpn.responseText);
-    console.log("Response: ", xhttpn.responseText)
-    xhttpn.onreadystatechange = function () {
+    xhttp8v.open("GET", "/beer8volume", true);
+    xhttp8v.send();
+    var xhttp8n = new XMLHttpRequest();
+    //var jsonResponse = JSON.parse(xhttp8n.responseText);
+    xhttp8n.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        chart1.setTitle({text: this.responseText});
+        chart8.setTitle({text: this.responseText});
       }
     };
-    xhttpn.open("GET", "/beer8name", true);
-    xhttpn.send();
+    xhttp8n.open("GET", "/beer8name", true);
+    xhttp8n.send();
   setInterval(function () {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
+    var xhttp8vt = new XMLHttpRequest();
+    xhttp8vt.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         var x = (new Date()).getTime(),
         yRaw = parseFloat(this.responseText)
@@ -566,8 +559,8 @@
         }
       }
     };
-    xhttp.open("GET", "/beer8volume", true);
-    xhttp.send();
+    xhttp8vt.open("GET", "/beer8volume", true);
+    xhttp8vt.send();
   }, 10000);
 
   var chart9 = new Highcharts.Chart({
@@ -582,7 +575,7 @@
         animation: false,
         dataLabels: { enabled: false }
       },
-      series: { color: '#18009c' }
+      series: { color: '#F45B5B' }
     },
     xAxis: {
       type: 'datetime',
@@ -593,8 +586,8 @@
     },
     credits: { enabled: false }
   });
-  var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
+  var xhttp9v = new XMLHttpRequest();
+  xhttp9v.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         var x = (new Date()).getTime(),
         yRaw = parseFloat(this.responseText)
@@ -606,21 +599,20 @@
         }
       }
     };
-    xhttp.open("GET", "/beer9volume", true);
-    xhttp.send();
-    var xhttpn = new XMLHttpRequest();
+    xhttp9v.open("GET", "/beer9volume", true);
+    xhttp9v.send();
+    var xhttp9n = new XMLHttpRequest();
     //var jsonResponse = JSON.parse(xhttpn.responseText);
-    console.log("Response: ", xhttpn.responseText)
-    xhttpn.onreadystatechange = function () {
+    xhttp9n.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        chart1.setTitle({text: this.responseText});
+        chart9.setTitle({text: this.responseText});
       }
     };
-    xhttpn.open("GET", "/beer9name", true);
-    xhttpn.send();
+    xhttp9n.open("GET", "/beer9name", true);
+    xhttp9n.send();
   setInterval(function () {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
+    var xhttp9vt = new XMLHttpRequest();
+    xhttp9vt.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         var x = (new Date()).getTime(),
         yRaw = parseFloat(this.responseText)
@@ -632,8 +624,8 @@
         }
       }
     };
-    xhttp.open("GET", "/beer9volume", true);
-    xhttp.send();
+    xhttp9vt.open("GET", "/beer9volume", true);
+    xhttp9vt.send();
   }, 10000);
 
   var chart10 = new Highcharts.Chart({
@@ -648,7 +640,7 @@
         animation: false,
         dataLabels: { enabled: false }
       },
-      series: { color: '#18009c' }
+      series: { color: '#2DE8E1' }
     },
     xAxis: {
       type: 'datetime',
@@ -659,8 +651,8 @@
     },
     credits: { enabled: false }
   });
-  var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
+  var xhttp10v = new XMLHttpRequest();
+  xhttp10v.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         var x = (new Date()).getTime(),
         yRaw = parseFloat(this.responseText)
@@ -672,21 +664,20 @@
         }
       }
     };
-    xhttp.open("GET", "/beer10volume", true);
-    xhttp.send();
-    var xhttpn = new XMLHttpRequest();
-    //var jsonResponse = JSON.parse(xhttpn.responseText);
-    console.log("Response: ", xhttpn.responseText)
-    xhttpn.onreadystatechange = function () {
+    xhttp10v.open("GET", "/beer10volume", true);
+    xhttp10v.send();
+    var xhttp10n = new XMLHttpRequest();
+    //var jsonResponse = JSON.parse(xhttp10n.responseText);
+    xhttp10n.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        chart1.setTitle({text: this.responseText});
+        chart10.setTitle({text: this.responseText});
       }
     };
-    xhttpn.open("GET", "/beer10name", true);
-    xhttpn.send();
+    xhttp10n.open("GET", "/beer10name", true);
+    xhttp10n.send();
   setInterval(function () {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
+    var xhttp10vt = new XMLHttpRequest();
+    xhttp10vt.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         var x = (new Date()).getTime(),
         yRaw = parseFloat(this.responseText)
@@ -698,8 +689,8 @@
         }
       }
     };
-    xhttp.open("GET", "/beer10volume", true);
-    xhttp.send();
+    xhttp10vt.open("GET", "/beer10volume", true);
+    xhttp10vt.send();
   }, 10000);
 </script>
 

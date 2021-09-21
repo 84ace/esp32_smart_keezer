@@ -14,12 +14,12 @@
   <link rel="stylesheet" href="css.css" type="text/css">
   <style>
     #container {
-      height: 400px;
+      height: 80%;
     }
 
     .highcharts-figure,
     .highcharts-data-table table {
-      min-width: 320px;
+      min-width: 80%;
       max-width: 800px;
       margin: 1em auto;
     }
@@ -63,8 +63,8 @@
 </head>
 
 <body>
-  <div style="padding: 20px;">
-    <div style="position:absolute;top:0;right:0;">
+  <div style="padding: 4px;">
+    <div style="float:right;">
       <a href="/consumption"><button>Beer Consumption</button></a>
       <a href="/settings"><button>Settings</button></a>
     </div>
@@ -111,6 +111,35 @@
     },
   ],
 });
+const xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (xhttp.readyState === 4 && xhttp.status === 200) {
+      var xAxisCategories = JSON.parse(xhttp.responseText);
+      console.log("responseJSON: ", xAxisCategories) // [10, 20, 30...]
+      chart.xAxis[0].update({categories: xAxisCategories});
+    }
+  };
+  xhttp.open("GET", "/allbeernames", true);
+  xhttp.send();
+  const xhttps = new XMLHttpRequest();
+  xhttps.onreadystatechange = function () {
+    if (xhttps.readyState === 4 && xhttps.status === 200) {
+      var jsonResponse = JSON.parse(xhttps.responseText);
+      console.log("responseJSON: ", jsonResponse) // [10, 20, 30...]
+      chart.series[0].setData(jsonResponse);
+    }
+  };
+  xhttps.open("GET", "/stats", true);
+  xhttps.send();
+  var xhttp1t = new XMLHttpRequest();
+    //var jsonResponse = JSON.parse(xhttp1n.responseText);
+    xhttp1t.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        chart.setTitle({text: this.responseText});
+      }
+    };
+    xhttp1t.open("GET", "/overviewchartname", true);
+    xhttp1t.send();
 setInterval(function () {
   const xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {

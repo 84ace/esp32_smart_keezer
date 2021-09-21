@@ -56,7 +56,7 @@
           xmlHttp.onreadystatechange = function () {
             if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
             {
-            console.log(xmlHttp.responseText);
+            //console.log(xmlHttp.responseText);
             elmnt.style.color = 'green';
             }
           }
@@ -88,13 +88,33 @@
           var xmlHttp = new XMLHttpRequest();
           xmlHttp.onreadystatechange = function () {
             if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-              console.log(xmlHttp.responseText);
+              //console.log(xmlHttp.responseText);
             elmnt.style.color = 'green';
           }
           xmlHttp.open("GET", "/get?flowmultiplier=" + data.value, true); // true for asynchronous 
           xmlHttp.send(null);
         }
       </script><br><br>
+       <span>Set the name for the Overview Chart's title, eg Murray's Brewery...</span>
+       <form action="" id="form" onsubmit="titlevolumeHttpGetAsync(this);">
+         Overview chart title: <input type="text" name="chartName" id="chartName">
+         <button type="submit">Submit</button>
+       </form><br><br>
+       <script>
+             function titlevolumeHttpGetAsync(elmnt) {
+   
+               var data = document.getElementById("chartName");
+               //console.log(data.value);
+               var xmlHttp = new XMLHttpRequest();
+               xmlHttp.onreadystatechange = function () {
+                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                   //console.log(xmlHttp.responseText);
+                 elmnt.style.color = 'green';
+               }
+               xmlHttp.open("GET", "/get?overviewchartname=" + data.value, true); // true for asynchronous 
+               xmlHttp.send(null);
+             }
+       </script>
       <span>Set the display name for Beer1...</span>
       <form action="" id="form" onsubmit="beer1nameHttpGetAsync(this);">
         Beer 01 name: <input type="text" name="beer1name" id="beer1name">
@@ -108,7 +128,7 @@
               var xmlHttp = new XMLHttpRequest();
               xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                  console.log(xmlHttp.responseText);
+                //console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
               }
               xmlHttp.open("GET", "/get?beer1name=" + data.value, true); // true for asynchronous 
@@ -128,7 +148,7 @@
               var xmlHttp = new XMLHttpRequest();
               xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                  console.log(xmlHttp.responseText);
+                  //console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
               }
               xmlHttp.open("GET", "/get?beer1volume=" + data.value, true); // true for asynchronous 
@@ -147,7 +167,7 @@
               var xmlHttp = new XMLHttpRequest();
               xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                  console.log(xmlHttp.responseText);
+                  //console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
               }
               xmlHttp.open("GET", "/get?beer2name=" + data.value, true); // true for asynchronous 
@@ -166,7 +186,7 @@
               var xmlHttp = new XMLHttpRequest();
               xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                  console.log(xmlHttp.responseText);
+                  //console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
               }
               xmlHttp.open("GET", "/get?beer2volume=" + data.value, true); // true for asynchronous 
@@ -185,7 +205,7 @@
               var xmlHttp = new XMLHttpRequest();
               xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                  console.log(xmlHttp.responseText);
+                  //console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
               }
               xmlHttp.open("GET", "/get?beer3name=" + data.value, true); // true for asynchronous 
@@ -204,7 +224,7 @@
               var xmlHttp = new XMLHttpRequest();
               xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                  console.log(xmlHttp.responseText);
+                  //console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
               }
               xmlHttp.open("GET", "/get?beer3volume=" + data.value, true); // true for asynchronous 
@@ -223,7 +243,7 @@
               var xmlHttp = new XMLHttpRequest();
               xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                  console.log(xmlHttp.responseText);
+                  //console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
               }
               xmlHttp.open("GET", "/get?beer4name=" + data.value, true); // true for asynchronous 
@@ -242,7 +262,7 @@
               var xmlHttp = new XMLHttpRequest();
               xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                  console.log(xmlHttp.responseText);
+                  //console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
               }
               xmlHttp.open("GET", "/get?beer4volume=" + data.value, true); // true for asynchronous 
@@ -261,7 +281,7 @@
               var xmlHttp = new XMLHttpRequest();
               xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                  console.log(xmlHttp.responseText);
+                  //console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
               }
               xmlHttp.open("GET", "/get?beer5name=" + data.value, true); // true for asynchronous 
@@ -280,7 +300,7 @@
               var xmlHttp = new XMLHttpRequest();
               xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                  console.log(xmlHttp.responseText);
+                  //console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
               }
               xmlHttp.open("GET", "/get?beer5volume=" + data.value, true); // true for asynchronous 
@@ -299,7 +319,7 @@
               var xmlHttp = new XMLHttpRequest();
               xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                  console.log(xmlHttp.responseText);
+                  //console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
               }
               xmlHttp.open("GET", "/get?beer6name=" + data.value, true); // true for asynchronous 
@@ -318,7 +338,7 @@
               var xmlHttp = new XMLHttpRequest();
               xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                  console.log(xmlHttp.responseText);
+                  //console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
               }
               xmlHttp.open("GET", "/get?beer6volume=" + data.value, true); // true for asynchronous 
@@ -337,7 +357,7 @@
               var xmlHttp = new XMLHttpRequest();
               xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                  console.log(xmlHttp.responseText);
+                  //console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
               }
               xmlHttp.open("GET", "/get?beer7name=" + data.value, true); // true for asynchronous 
@@ -356,7 +376,7 @@
               var xmlHttp = new XMLHttpRequest();
               xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                  console.log(xmlHttp.responseText);
+                  //console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
               }
               xmlHttp.open("GET", "/get?beer7volume=" + data.value, true); // true for asynchronous 
@@ -375,7 +395,7 @@
               var xmlHttp = new XMLHttpRequest();
               xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                  console.log(xmlHttp.responseText);
+                  //console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
               }
               xmlHttp.open("GET", "/get?beer8name=" + data.value, true); // true for asynchronous 
@@ -394,7 +414,7 @@
               var xmlHttp = new XMLHttpRequest();
               xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                  console.log(xmlHttp.responseText);
+                  //console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
               }
               xmlHttp.open("GET", "/get?beer8volume=" + data.value, true); // true for asynchronous 
@@ -413,7 +433,7 @@
               var xmlHttp = new XMLHttpRequest();
               xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                  console.log(xmlHttp.responseText);
+                  //console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
               }
               xmlHttp.open("GET", "/get?beer9name=" + data.value, true); // true for asynchronous 
@@ -432,7 +452,7 @@
               var xmlHttp = new XMLHttpRequest();
               xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                  console.log(xmlHttp.responseText);
+                  //console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
               }
               xmlHttp.open("GET", "/get?beer9volume=" + data.value, true); // true for asynchronous 
@@ -451,7 +471,7 @@
               var xmlHttp = new XMLHttpRequest();
               xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                  console.log(xmlHttp.responseText);
+                  //console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
               }
               xmlHttp.open("GET", "/get?beer10name=" + data.value, true); // true for asynchronous 
@@ -470,7 +490,7 @@
               var xmlHttp = new XMLHttpRequest();
               xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                  console.log(xmlHttp.responseText);
+                  //console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
               }
               xmlHttp.open("GET", "/get?beer10volume=" + data.value, true); // true for asynchronous 
@@ -490,7 +510,7 @@
               var xmlHttp = new XMLHttpRequest();
               xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                  console.log(xmlHttp.responseText);
+                  //console.log(xmlHttp.responseText);
                 elmnt.style.color = 'green';
               }
               xmlHttp.open("GET", "/get?wifissid=" + data.value, true); // true for asynchronous 
@@ -511,7 +531,7 @@
             xmlHttp.onreadystatechange = function () {
               if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
               {
-              console.log(xmlHttp.responseText);
+              //console.log(xmlHttp.responseText);
               elmnt.style.color = 'green';
               }
                 
